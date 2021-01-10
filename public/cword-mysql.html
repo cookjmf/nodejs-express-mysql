@@ -1,0 +1,4994 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Laclos Crossword</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+<!-- This code was generated at Tue Dec 22 2020 17:45:58 GMT-0600 (Central Standard Time). Do not edit. -->
+
+
+<style type="text/css">
+
+/* General */
+
+html,body {
+  margin:0;
+  padding:0;
+  height:100%;
+  font-size:13px;
+  font-family: IBMPlexSans,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+/* Crossword board container */
+
+.cw-cont {
+  position: relative;
+  background: #FFFFFF;
+  margin: 30px 0 0 30px;
+}
+
+/* Current Clue */
+
+.cw-clues-current {
+  font-size: 18px;
+  color: white;
+  background-color: blue;
+  margin-top: 20px;  
+  margin-bottom: 20px;  
+  margin-left: 0px;
+  margin-right: 0px;
+  width: fit-content;
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Crossword board */
+
+.cw-board-7by7 {
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  border: 1px solid #000000;
+  display: grid;
+  width: 300px;
+  height: 300px;
+  grid-template: repeat(7, 14.2857%)/repeat(7, 14.2857%); 
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.cw-board-9by9 {
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  /* border: 1px solid #000000;*/
+  border: 0;
+  display: grid;
+  width: 370px;
+  height: 370px;
+  grid-template: repeat(9, 11.1111%)/repeat(9, 11.1111%); 
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.cw-board-15by15 {
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  border: 1px solid #000000;
+  display: grid;
+  width: 600px;
+  height: 600px;
+  grid-template: repeat(15, 6.6667%)/repeat(15, 6.6667%); 
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.cw-board-17by17 {
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  /* border: 1px solid #000000;*/
+  border: 0;
+  display: grid;
+  width: 680px;
+  height: 680px;
+  grid-template: repeat(17, 5.8824%)/repeat(17, 5.8824%); 
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.cw-board-20by20 {
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  border: 1px solid #000000;
+  display: grid;
+  width: 800px;
+  height: 800px;
+  grid-template: repeat(20, 5%)/repeat(20, 5%); 
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.cw-board-22by22 {
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  /* border: 1px solid #000000;*/
+  border: 0;
+  display: grid;
+  width: 880px;
+  height: 880px;
+  grid-template: repeat(22, 4.5454%)/repeat(22, 4.5454%); 
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* Crossword cell background : z-index 90 of cell */
+
+.cw-item-bg {
+  background: transparent;
+  position: relative;
+  z-index: 90;
+}
+
+/* Crossword cell : z-index 100 of cell */
+
+.cw-item {
+  border: 1px solid #000000;
+  background: transparent;
+  position: relative;
+  z-index: 100;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Crossword param cell */
+
+.cw-param-item {
+  border: 1px solid #000000;
+  background: transparent;
+  position: relative;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Crossword number cell */
+
+.cw-number-item {
+  border: 0;
+  background: transparent;
+  position: relative;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: auto;
+}
+
+/* Blank crossword cell */
+
+.cw-blank {
+  background: #000000;
+  border: 1px solid #000000;
+  outline: 1px solid #000000;
+}
+
+/* Crossword cell backgrounds : z-index 50 of cell */
+
+.cw-itembgs {
+  position: absolute;
+  z-index: 50;
+}
+
+/* Crossword cell background */
+
+.cw-itembg {
+  position: relative;
+}
+
+/* Crossword cell labels (clue number) : z-index 60 of cell */
+
+.cw-labels {
+  position: absolute;
+  z-index: 60;
+}
+
+/* Crossword cell label (clue number) */
+
+.cw-label {
+  position: relative;
+}
+
+/* Crossword cell label text (clue number) */
+
+.cw-label-text {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* Crossword clues */
+
+.cw-clues-7by7{
+  position: absolute;
+  top: 0;
+  left: 400px;
+  width: 920px;
+  height: 1200px;
+}
+
+.cw-clues-9by9{
+  position: absolute;
+  top: 0;
+  left: 450px;
+  width: 920px;
+  height: 1200px;
+}
+
+.cw-clues-15by15{
+  position: absolute;
+  top: 0;
+  left: 600px;
+  width: 920px;
+  height: 1200px;
+}
+
+.cw-clues-17by17{
+  position: absolute;
+  top: 0;
+  left: 680px;
+  width: 920px;
+  height: 1200px;
+}
+
+.cw-clues-20by20{
+  position: absolute;
+  top: 0;
+  left: 820px;
+  width: 920px;
+  height: 1200px;
+}
+
+.cw-clues-22by22{
+  position: absolute;
+  top: 0;
+  left: 900px;
+  width: 920px;
+  height: 1200px;
+}
+
+/* Crossword clues list */
+
+.cw-clues-list {
+  column-count: 4;
+  column-gap: 2px;
+}
+
+/* Crossword clues list title */
+
+.cw-clues-list-title {
+  font-weight: bold;
+  padding: 4px;
+}
+
+/* Crossword clue row */
+
+.cw-clues-row {
+  padding: 4px;
+}
+
+/* Crossword clue */
+
+.cw-clues-list-item  {
+  display: inline-block;
+  width:160px;
+  word-wrap:break-word;
+}
+
+/* Crossword clue anchor */
+
+.cw-clues-list-item a {
+  color:black;
+  text-decoration:none;
+}
+
+/* Crossword clue prefix number */
+
+.cw-clues-label {
+  display: inline-block;
+  width:30px;
+  vertical-align: top;
+  text-align: right;
+  padding-right: 6px;
+}
+
+/* Crossword clue param text area */
+.cw-clues-param-text-7by7{
+  width: 600px;
+  height: 160px;
+}
+
+/* Crossword clue param text area */
+.cw-clues-param-text-15by15{
+  width: 600px;
+  height: 300px;
+}
+
+/* Crossword clue param text area */
+.cw-clues-param-text-20by20{
+  width: 600px;
+  height: 400px;
+}
+
+
+
+/* Crossword name etc in select options for init */
+
+.cw-init-select {
+  width: 160px;
+  margin-right: 20px;
+}
+
+/* Crossword name etc in inputs for init */
+
+.cw-init-input {
+  width: 160px;
+  margin-right: 20px;
+}
+
+/* Crossword export/import text area */
+.cw-export-import-text {
+  width: 1200px;
+  height: 400px;
+}
+
+/* Info message */
+
+.cw-message-info {
+  color: white;
+  background-color: green;
+  margin-top: 20px;  
+  margin-bottom: 20px;  
+  margin-left: 0px;
+  margin-right: 0px;
+  width: fit-content;
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Error message */
+
+.cw-message-error {
+  color: white;
+  background-color: red;
+  margin-top: 20px;  
+  margin-bottom: 20px;  
+  margin-left: 0px;
+  margin-right: 0px;
+  width: fit-content;
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Warning message */
+
+.cw-message-warn {
+  color: white;
+  background-color: orange;
+  margin-top: 20px;  
+  margin-bottom: 20px;  
+  margin-left: 0px;
+  margin-right: 0px;
+  width: fit-content;
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="cw-init-cont" class="cw-cont"> 
+</div>
+
+<div id="cw-message-cont" class="cw-cont"> 
+</div>
+
+<div id="cw-params-cont" class="cw-cont"> 
+</div>
+
+<div id="cw-cont" class="cw-cont"> 
+</div> 
+
+<script type="text/javascript" >
+
+// ###################################################################
+// Constants
+//
+// ###################################################################
+var VERSION = '201222_1745';
+
+var OCR_ONLINE_URL = 'https://www.onlineocr.net';
+// var OCR_TEXT = 'Upload photo file, select FRENCH, select Text Plain';
+
+var HEADER_7 = ''+
+    '           1   2   3   4   5   6   7'+
+    '      + ----------------------------';
+
+var HEADER_15 = ''+
+    '                                               1                    '+
+    '           1   2   3   4   5   6   7   8   9   0   1   2   3   4   5'+
+    '      + ------------------------------------------------------------';
+
+var HEADER_20 = ''+
+    '                                               1                                       2'+
+    '           1   2   3   4   5   6   7   8   9   0   1   2   3   4   5   6   7   8   9   0'+
+    '      + --------------------------------------------------------------------------------';
+
+var HEADER_MAP = new Map();
+HEADER_MAP.set(7, HEADER_7);
+HEADER_MAP.set(15, HEADER_15);
+HEADER_MAP.set(20, HEADER_20);
+
+var MIN_CWORD_LEN = 3;
+var MAX_CWORD_LEN = 80;
+
+// 7 by 7 small data
+var EXAMPLE_7A = 'example7A';
+var CWORD_7A = {"name": EXAMPLE_7A, "maxAcross": 7, "maxDown": 7};
+CWORD_7A.blanks = '1 4;2 2;3 4;4 1,3;5 6;6 5';       
+CWORD_7A.horizClues = '1. Father. Single. 2. Finger. 3. Deity! Sprite. 4. Music. 5. Displays. 6. Iema? Ti. 7. Transon.';
+CWORD_7A.vertClues = '1. Canine. Repose. 2. Alternate. 3. Performed. Oma. 4. Bird. 5. Smelly. 6. Nemu. Towards. 7. Teach.'; 
+
+// 15 by 15
+var EXAMPLE_15A = 'example15A';
+var CWORD_15A = {"name":EXAMPLE_15A,"maxAcross":15,"maxDown":15};
+CWORD_15A.blanks = "2 5,10;3 8,12;4 5,7,11,13;5 6;6 8,10,13,14;7 7,15;8 2,7;9 4,6,13;10 10,12;11 3;12 5,7,9,10,15;"
+    + "13 8,11,13;14 7,14;15 1,2;"
+CWORD_15A.horizClues = 
+      "1. Compagnon de route."
+    + "2. Fait la tête de cochon. Cours séché. Dans les montagnes russes."
+    + "3. État noir. Ne se plaque pas facilement. Pièce meublée."
+    + "4. La route du fer. A toujours le mot pour rire. Bouts de chandelles."
+    + "5. Coucher dans un tonneau. Mise en forme."
+    + "6. Nous sont très chers. Note."
+    + "7. Blanc dangereux. Collée au mur."
+    + "8. Est anglo-saxon. Blanc dangereux quand il y a de l'abus."
+    + "9. Chinois, Belge ou d'Islande. Coup de masse. N'arrive en tête qu'un jour par semaine."
+    + "10. Exposé à l'office. Tour de guet."
+    + "11. Ne comptait guère pour Mao. Que deviendrait-elle sans ses fils ?"
+    + "12. Fauteur de guerre. Nantais révoqué."
+    + "13. A des trous dans la tête. Possessif. Préposition."
+    + "14. Futur vétéran. Morceau de Vivaldi."
+    + "15. Bonjour les dégâts."
+CWORD_15A.vertClues = 
+      "1. Très brillant dès le cours élémentaire."
+    + "2. Bonne occasion. Jaune plus ou moins."
+    + "3. Mirent en boule. A ce qu'il faut pour bien tourner."
+    + "4. À l'envers : de Rome ou d'Aragon. Passe l'éponge."
+    + "5. Éprouve. Dégazage."
+    + "6. Monte ou descend, selon le sens. Tue n'importe comment. Espèce de perche."
+    + "7. Bob rouge. Ancien. Double mixte."
+    + "8. Presqu'île. Pige. Inséparable de Renaud, surtout au théâtre. Note."
+    + "9. Reconnaîtra sans peine. Grande ombre chinoise."
+    + "10. Indique le passage. Allumé ou éteint. Pris dans un grand bol."
+    + "11. Pronom. Bruant ou Briand. Possessif."
+    + "12. Conjonction. Centenaire. Simple villageois."
+    + "13. Est vachement nourrissant. Éclat de rire. Grecque. Conjonction."
+    + "14. Cognée. Toujours devant."
+    + "15. Tournée. Lit des bouquins. Souvent décourageant."
+
+// 20 by 20 full size
+var EXAMPLE_20A = 'example20A';
+var CWORD_20A = {"name": EXAMPLE_20A, "maxAcross": 20, "maxDown": 20};
+CWORD_20A.blanks = "1 8,20;2 6,13;3 5,13;4 14,19;5 9,15;6 5,11,15,18,20;7 2,4,9,12;8 6,8,14;9 1,7,10,13,17,19;10 2,4,10,16;"
+     + "11 7,19;12 4,9,10,15,19;13 3,13,15,19;14 5,20;15 7,16,17,18;16 8,11,12,19;17 5,12,19;18 1,8,10,17;19 3,4,6,7,14,19;20 8,12;";
+CWORD_20A.horizClues = 
+      "1. On la croit ici mais elle est ailleurs. Occupent des postes de direction dans des compagnies aériennes. "
+    + "2. Place à l'envers. Vieux poulets. Tremblait d'émotion. "
+    + "3. Pompe papale. Partie en fugue. A pris le voile. "
+    + "4. Des champignons parfois dangereux. Mesure obsolète. "
+    + "5. Dans les montagnes russes. De vieux amis toujours fidèles. Collier de mariage. "
+    + "6. Direction générale. Ne négligea aucune lettre. Créée. Passage en chinois. "
+    + "7. Accents aigus. Bout de camembert. Terre très riche. "
+    + "8. Père de mamelles. Jeu de cartes. Coucou ou zizi. "
+    + "9. Fausse note. Préposition. Pronom. Se prend dans un grand bol à la campagne. "
+    + "10. La fin de tout. N'est pas entravé à Oxford. A un côté théâtral. "
+    + "11. Travaillent pour la voirie en Amérique. Productrice de bouchons. "
+    + "12. Possédée. Nourrissait les gens d'armes. Retournée au Pérou. Est sans effets. "
+    + "13. Conjonction. Les vols y sont assez fréquents. Lettres de Nosferatu. "
+    + "14. Solidement bâti. Guère civile. "
+    + "15. Mouche moche. Travaille  avec ses fils dans la marine. Possessif. "
+    + "16. On y fait des pâtés. Un minimum d'adresse. Carré vert. "
+    + "17. Esprit léger. À l'envers part personnelle. Familier de Labiche et de Ionesco. "
+    + "18. Élément de train. Homme de troupe. Première mondiale. "
+    + "19. Change presque tous les jours. Ruban à la page. Vieil auteur-compositeur-interprète. "
+    + "20. Agglomérations ouvrières. Décoration murale. Étaient bienheureux aux enfers.";
+
+CWORD_20A.vertClues = 
+      "1. Réunion sans intérêt. Fait croquer le marmot. Pronom. "
+    + "2. Rote. Petit morceau de sucre. Petites voies d'eau. "
+    + "3. Spécialiste du chauffage central et des bouches de chaleur. Les damnés de la terre. "
+    + "4. Grecs à part. La moitié d'une alouette. Un enfer très peuplé. "
+    + "5. Es qualités. Morceau de reblochon. Avec lui, les départs sont foudroyants. L'agrément de l'Italie. Nom de lieu. "
+    + "6. Patron en 40. Déviation pour poids lourds. "
+    + "7. On lui a cassé les pieds ? Dégazage par derrière. Faisait partie de la Guépéou. "
+    + "8. Portées par des vieux bien culottés. Un morceau de canard pris dans des filets. "
+    + "9. Pas d'accord avec Poutine. Est toujours dans l'opposition. Faisait écho. "
+    + "10. Humain mais pas naturel. De bas en haut : messager sur les ondes. Dans la gamme. "
+    + "11. Bien sapée. Est allée chez les Arlésiens. File dans l'autre sens. "
+    + "12. Col montant. Ont été mises au courant. Quartier de province. "
+    + "13. Arrivées d'eau (salée). Surnuméraire chez les Quarante. Elle adorait les histoires de Marius. "
+    + "14. Petit grain pour la foi. À l'envers : dura pour les Latins. Chez Aristote, n'est logique qu'en partie. "
+    + "15. Fit avancer. Mesure à la main. Ce n'est pas le Pérou ! "
+    + "16. A son utilité dans une exécution som-maire. Dans la nature. Ont changé d'air. "
+    + "17. Centres d'émissions. Ne doit pas manquer de points ! Va de ville en ville. Particule. "
+    + "18. Annoncer son départ. Oiseaux mécaniques. Que du blanc pour Arthur. "
+    + "19. Terre de pots rouges. Petit cheval de manège. Ajoute quelque chose. "
+    + "20. Distributrice d'images. Boîte à couture. Tables de la foi.";
+
+var EXAMPLE_MAP = new Map();
+EXAMPLE_MAP.set(EXAMPLE_7A, CWORD_7A);
+EXAMPLE_MAP.set(EXAMPLE_15A, CWORD_15A);
+EXAMPLE_MAP.set(EXAMPLE_20A, CWORD_20A);
+             
+var EXAMPLE_CLUES =
+      "1. Conseillères de direction. Attaché militaire. \n"
+    + "2. Souvent noires avec deux verres seulement. Faire au moins un bienheureux. \n"
+    + "3. Débute dans un opéra de Verdi. Se dirige vers la morgue. Grand producteur. \n"
+    + "4. Fille du Van ? A été chef de Colonne. \n"
+    + "5. Mis sur la paille. Tempête sur le Nil. Solide casse-croûte. Retourné à la banque. \n"
+
+// ###################################################################
+// Globals
+//
+// ###################################################################
+
+// action chosen in init params
+var CWORD_ACTION = '';
+
+var ACTION_CREATE = 'create';
+var ACTION_UPDATE = 'update';
+var ACTION_PLAY = 'play';
+var ACTION_IMPORT = 'import';
+var ACTION_EXPORT = 'export';
+var ACTION_CLEAR = 'clear';
+var ACTION_DELETE = 'delete';
+
+// cword names already saved
+var EXISTING_NAMES = [];
+
+// messages found in building grid and clues / saving
+var MESSAGES_ERROR = [];
+var MESSAGES_WARN = [];
+var MESSAGES_INFO = [];
+
+// the current crossword attributes
+var CWORD_NAME= '';
+var MAX_ACROSS = 0;
+var MAX_DOWN = 0;
+var BLANKS = '';
+var HORIZ_CLUES = '';
+var VERT_CLUES ='';
+
+// cell values as object - used in select
+var CELL_VALUES = {};
+
+// The Non Blank Cells : key = x.y  val = Cell
+let CELL_MAP = new Map();
+
+// The Clues : key = x.y.dir  val = Clue
+let CLUE_MAP = new Map();
+
+// Flag that defines : Numbers around grid / no numbers around grid
+var NUMBERED_GRID = true;
+
+// Contexts for save operations
+var CTX_IMPORT = 'ctx-import';
+var CTX_NEW_EXAMPLE = 'ctx-new-example';
+var CTX_UPDATE = 'ctx-update';
+var CTX_NEW = 'ctx-new';
+var CTX_PLAY = 'ctx-play';
+
+// Contexts for getNames operations
+var CTX_MAKE_ACTIONS = 'ctx-make-actions';
+var CTX_MAKE_NAMES = 'ctx-make-names';
+
+// Allowed values for across/down
+var ACROSS_VALUES = [7, 15, 20];
+var DOWN_VALUES = [7, 15, 20];
+
+// ###################################################################
+// Utility functions & classes
+//
+// ###################################################################
+
+/*
+  Cell : a square in the crossword grid
+  x : column , from left to right , starts with 1
+  y : row , from top to bottom, starts with 1
+  label : number in top left corner of cell
+  acrossClue : the across clue that this cell is part of
+  acrossPos : the position in the across clue
+  acrossValue : the value in the across clue
+  acrossLabel : the label of the across clue
+  downClue : the down clue that this cell is part of
+  downPos : the position in the down clue
+  downValue : the value in the down clue
+  downLabel : the label of the down clue
+*/
+function Cell(x, y) {
+  this.x = x;
+  this.y = y;
+  this.label = 0;
+  this.acrossClue = null;
+  this.acrossPos = 0;
+  this.acrossValue = '';
+  this.acrossLabel = 0;
+  this.downClue = null;
+  this.downPos = 0;
+  this.downValue = '';
+  this.downLabel = 0;
+}
+
+/*
+  Clue : a crossword clue
+  x : column in grid of first letter
+  y : row in grid of first letter
+  isAcross : true if across , false if down
+  clueNumber : number of clue
+  answer : the solution for clue
+  text : the text of clue
+  n : ordinal of clue on row / column 
+  firstCell : the Cell of first letter
+  answerLen : length of answer
+*/
+function Clue(x, y, isAcross, clueNumber, answer, text, n) {
+  this.x = x;
+  this.y = y;
+  this.isAcross = isAcross;
+  this.clueNumber = clueNumber;
+  this.answer = answer;
+  this.text = text;
+  this.n = n;
+  this.firstCell = null;
+  this.answerLen = 0;
+}
+
+function getLines(num, clues, dir) {
+
+  var errMsgs = [];
+  var lines = [];
+  var p1 = 0;
+  var p2 = -1;
+  // go 1 pass the max to find errors
+  for (let i=1; i<=num+1; i++) {
+    if (i == (num+1)) {
+      console.log('On the line after last legal line');
+    }
+    var s1 = i+'. ';
+    var s2 = (i+1)+'. ';
+    p1 = clues.indexOf(s1, p2);
+    if (p1 >=0) {
+      p2 = clues.indexOf(s2, p1+3);
+      var line = '';
+      if (p2 > p1) {
+        line = clues.substring(p1, p2);
+        line = line.trim();
+      } else {
+        // this is only valid for last clue line, in all cases keep the line so as to allow the user to remove it
+        line = clues.substring(p1);
+        line = line.trim();
+        if (i > num) {
+          errMsgs.push('Too many '+dir+' clue lines. Found '+i+' but expected '+num+'.');
+        } else if (i < num) {
+          errMsgs.push('Cannot find '+dir+' clue line starting ['+s2+'] after '+dir+' clue line starting ['+s1+'].');
+        }
+      }
+      if (line.endsWith('.') || line.endsWith('!') || line.endsWith('?')) {
+        if (i > num) {
+          errMsgs.push('Too many '+dir+' clue lines. Found '+i+' but expected '+num+'.');
+        }
+      } else {
+        errMsgs.push('Invalid '+dir+' clue line ['+line+']. Must end with either period (.) or exclamation mark (!) or question mark (?).');
+      }
+      // keep the line so as to allow the user to remove it
+      lines.push(line);
+    } else {
+      if (i <= num) {
+        errMsgs.push('Cannot find '+dir+' clue line starting ['+s1+'].');
+      }
+    }
+  }
+  if (errMsgs.length > 0) {
+    addErrors(['Invalid '+dir+' clue lines', errMsgs[0]]);
+  }   
+  return lines;
+}
+
+function getFirstCellKey(clue) {
+  return clue.x+'.'+clue.y;
+}
+
+function toInputFormat(clue) {
+  // (Y|X|A/D|ClueId|Answer|Clue)
+  var s = clue.y+'|'+clue.x;
+  s += '|'+getDirection(clue).toUpperCase();
+  if (clue.isAcross) {
+    s += '|'+clue.y;
+  } else {
+    s += '|'+clue.x;
+  }
+  s += '.'+clue.n+'.'+clue.answerLen+'|';
+  for (var i=0; i<clue.answerLen; i++) {
+    s+='X';
+  }
+  s+='|'+clue.text;
+  return s;
+}
+
+function getInteger(a) {
+  var x= 1 * a;
+  return x;
+}
+
+function uniqLocation(clue) {
+  return clue.x+'.'+clue.y+'.'+getDirection(clue);
+}
+    
+function getDirection(clue) {
+  var d = 'd';
+  if (clue.isAcross) {
+    d = 'a';
+  }
+  return d;
+}
+
+function getFrid(clue) {
+  var d = '';
+  if (clue.isAcross) {
+    d = 'a.'+clue.y+'.'+clue.n;
+  } else {
+    d = 'd.'+clue.x+'.'+clue.n;
+  }
+  return d;
+}
+
+function toId(cell) {
+  return toCellId(cell.y, cell.x);
+}
+
+function toCellId(y, x) {
+  return ''+toChar(y)+toChar(x);
+}
+
+function toChar(inta) {
+  var a2 = 96+inta;
+  var c2 = String.fromCharCode(a2);
+  return c2;
+}
+
+function formatNum(n) {
+  if (n < 10) {
+    return '  '+n;
+  } else if (n < 100) {
+    return ' '+n;
+  } else {
+    return n;
+  }
+}
+
+function getLabel(clue) {
+  var k = 0;
+  if (clue.firstCell != null) {
+    k = clue.firstCell.label;           
+  }
+  return k;
+}
+
+function sortByLabel(cella, cellb) {
+  if (getLabel(cella) > getLabel(cellb)) {
+    return 1;
+  } else {
+    return -1;
+  }
+}
+
+function getAcrossClues() {
+  var list = [];
+  for (let [key, clue] of CLUE_MAP) {
+    // console.log(key + " = " + value);
+    if (clue.isAcross) {
+      list.push(clue);    
+    }
+  }
+  var blist = list.sort(sortByLabel);
+  return blist;
+}
+
+function getDownClues() {
+  var list = [];
+  for (let [key, clue] of CLUE_MAP) {
+    // console.log(key + " = " + value);
+    if (!clue.isAcross) {
+      list.push(clue);    
+    }
+  }
+  var blist = list.sort(sortByLabel);
+  return blist;
+}
+
+function getClueRegExp() {
+  var separators = [ '\\.' ,'?', '!' ];
+  var sepRe = new RegExp('([' + separators.join('') + '])+');
+  return sepRe;
+}
+
+function hasCellAdjacentDown(cell, n) {
+  var x = cell.x;
+  var y = cell.y;
+  var newY = y + n;
+  var newKey = x+'.'+newY;         
+  var cell2 = CELL_MAP.get(newKey);
+  if (cell2 != null) {
+    return true;
+  }
+  return false;
+}
+
+function getActiveCellDown(cell, n) {
+  var cell2 = null;
+  var x = cell.x;
+  var y = cell.y;
+        
+  var numTries = 0;
+  while (true) {
+    numTries++;
+    if (numTries >= MAX_DOWN) {
+      break;
+    }
+    var newY = y + n;
+    if (newY < 1) {
+      newY = MAX_DOWN;
+    }
+    if (newY > MAX_DOWN) {
+      newY = 1;
+    }
+
+    var newKey = x+'.'+newY;
+            
+    cell2 = CELL_MAP.get(newKey);
+    if (cell2 != null) {
+      break;
+    }
+            
+    y = newY;
+            
+  }
+  return cell2;       
+}
+
+function hasCellAdjacentAcross(cell, n) {
+  var x = cell.x;
+  var y = cell.y;
+  var newX = x + n;
+  var newKey = newX+'.'+y;            
+  var cell2 = CELL_MAP.get(newKey);
+  if (cell2 != null) {
+    return true;
+  }
+  return false;
+}
+
+function getActiveCellAcross(cell, n) {
+  var cell2 = null;
+  var x = cell.x;
+  var y = cell.y;
+        
+  var numTries = 0;
+  while (true) {
+    numTries++;
+    if (numTries >= MAX_ACROSS) {
+      break;
+    }
+    var newX = x + n;
+    if (newX < 1) {
+      newX = MAX_ACROSS;
+    }
+    if (newX > MAX_ACROSS) {
+      newX = 1;
+    }
+    var newKey = newX+'.'+y;
+            
+    cell2 = CELL_MAP.get(newKey);
+    if (cell2 != null) {
+      break;
+    }
+            
+    x = newX;
+            
+  }
+  return cell2;       
+}
+
+function getNextAcrossClue(clue) {
+  var acrossClues = getAcrossClues();
+  for (var i=0; i<acrossClues.length; i++) {
+    var clue2 = acrossClues[i];
+    var label2 = getLabel(clue2);
+    if (label2 == getLabel(clue)) {
+      var nextDisp = i + 1;
+      if (nextDisp >= acrossClues.length) {
+        nextDisp = 0;
+      }
+      return acrossClues[nextDisp];               
+    }
+  }
+  return null;
+}
+
+function getNextDownClue(clue) {
+  var downClues = getDownClues();
+  for (var i=0; i<downClues.length; i++) {
+    var clue2 = downClues[i];
+    var label2 = getLabel(clue2);
+    if (label2 == getLabel(clue)) {
+      var nextDisp = i + 1;
+      if (nextDisp >= downClues.length) {
+        nextDisp = 0;
+      }
+      return downClues[nextDisp];               
+    }
+  }
+  return null;
+}
+
+function getPrevAcrossClue(clue) {
+  var acrossClues = getAcrossClues();
+  for (var i=0; i<acrossClues.length; i++) {
+    var clue2 = acrossClues[i];
+    var label2 = getLabel(clue2);
+    if (label2 == getLabel(clue)) {
+      var nextDisp = i - 1;
+      if (nextDisp < 0) {
+        nextDisp = acrossClues.length-1;
+      }
+      return acrossClues[nextDisp];               
+    }
+  }
+  return null;
+}
+
+function getPrevDownClue(clue) {
+  var downClues = getDownClues();
+  for (var i=0; i<downClues.length; i++) {
+    var clue2 = downClues[i];
+    var label2 = getLabel(clue2);
+    if (label2 == getLabel(clue)) {
+      var nextDisp = i - 1;
+      if (nextDisp < 0) {
+        nextDisp = downClues.length-1;
+      }
+      return downClues[nextDisp];               
+    }
+  }
+  return null;
+}
+
+function getLabelCells() {
+  var list = [];
+  for (var y=1; y<=MAX_DOWN; y++) {
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      var cell = CELL_MAP.get(cellKey);
+      if (cell != null) {
+        if (cell.label > 0) {
+          list.push(cell);
+        }
+      }
+    }
+  }
+  return list;
+}
+
+function removeAllChildNodes(parent) {
+  if (parent != null) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+  }
+}
+
+function removeElement(elem) {
+  if (elem != null) {
+    removeAllChildNodes(elem);
+    elem.parentNode.removeChild(elem);
+  }
+}
+
+function cellValuesToObj() {
+  let obj = {};
+  for (let y=1; y<=MAX_DOWN; y++) {
+    for (let x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      console.log('cell->toObject .... cellKey : ['+cellKey+']');
+      var cell = CELL_MAP.get(cellKey);
+      if (cell != null) {
+        var cellId = toId(cell);
+        var elem = document.getElementById(cellId);
+        if (elem != null) {
+          var elemVal = elem.value;
+          if (elemVal != null && elemVal.length > 0) {
+            obj[cellId] = elemVal;
+            console.log('............ cell->toObject : ['+cellId+'] : ['+elemVal+']');
+          }
+        }
+      }
+    }
+  }
+  return obj;
+}
+
+function cellValuesToMap() {
+  let valueMap = new Map();
+  for (let y=1; y<=MAX_DOWN; y++) {
+    for (let x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      console.log('cell->toMap .... cellKey : ['+cellKey+']');
+      var cell = CELL_MAP.get(cellKey);
+      if (cell != null) {
+        var cellId = toId(cell);
+        var val = CELL_VALUES[cellId];
+        if (val != null && val.length > 0) {
+          if (!valueMap.has(cellId)) {
+            valueMap.set(cellId, val);
+            console.log('............ cell->toMap : ['+cellId+'] : ['+val+']');
+          } else {
+            console.log('Dup value from CELL_VALUES for : ['+cellId+']');
+          }
+        }
+      }
+    }
+  }
+  return valueMap;
+}
+
+function isAllowedAcross(val) {
+  if (ACROSS_VALUES.includes(val)) {
+    return true;
+  }
+  return false;
+}
+
+function isAllowedDown(val) {
+  if (DOWN_VALUES.includes(val)) {
+    return true;
+  }
+  return false;
+}
+
+
+// ###################################################################
+// Initialization functions
+//
+// ###################################################################
+
+function initCellMap() {
+
+  if (!isValidCrosswordName()) {
+    // addWarn('initCellMap : Invalid name : ['+CWORD_NAME+']');
+    addErrors(['Invalid crossword name.','Crossword name must have 3-80 characters and not start with --.']);
+  }
+
+  if (!isAllowedAcross(MAX_ACROSS)) {
+  // if (MAX_ACROSS != 7 && MAX_ACROSS != 20) {
+    addWarn('initCellMap : Invalid MAX_ACROSS : '+MAX_ACROSS);
+  }
+
+  if (!isAllowedAcross(MAX_DOWN)) {
+  // if (MAX_DOWN != 7 && MAX_DOWN != 20) {
+    addWarn('initCellMap : Invalid MAX_DOWN : '+MAX_DOWN);
+  }
+  
+  CELL_MAP = new Map();
+
+  CLUE_MAP = new Map();
+
+  // The Blank Cells : key = x.y  val = x.y 
+  let blankMap = getBlankMap();
+
+  // setup cells
+  for (let y=1; y<=MAX_DOWN; y++) {
+    for (let x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      if (!blankMap.has(cellKey)) {  
+        var cell = new Cell(x,y);
+        CELL_MAP.set(cellKey, cell);
+        console.log('Setup cell at '+cellKey);
+      }
+    }
+  }
+  console.log('Setup '+CELL_MAP.size+' cells');
+
+  if (CELL_MAP.size == 0) {
+    addWarn('initCellMap : No valid cells');
+  }
+
+  var avail = MAX_ACROSS * MAX_DOWN;
+  var used = blankMap.size + CELL_MAP.size;
+  if (avail === used) {
+    console.log('All used : avail='+avail+ ', used='+used);
+  } else {
+    console.log('ERROR : All NOT used : avail='+avail+ ', used='+used);
+    addWarn('initCellMap : Not all cells used in initCellMap. Available='+avail+ ', used='+used);
+  }
+
+}
+
+function getBlankMap() {
+  // The Blank Cells : key = x.y  val = x.y 
+  let blankMap = new Map();
+
+  if (BLANKS.length == 0) {
+    addErrors(['No blanks defined.' ,'At least one blank must be defined.']);
+  }
+
+  // setup blanks
+  let blankLines = BLANKS.split(';');
+  for (let i = 0; i < blankLines.length; i++) {
+    var line = blankLines[i]; 
+    line = line.trim();
+    if (line.length == 0) {
+      continue;
+    }
+    console.log('BlankLine#'+(i+1)+' ['+line+']');
+    var lineParts = line.split(' ');
+    if (lineParts.length !=2) {
+      console.log("Bad # parts, need 2, but have : "+lineParts.length);
+      addWarn('getBlankMap : Bad # parts, need 2, but have : '+lineParts.length);
+    }
+    var yVal = lineParts[0];
+    if (yVal < 1) {
+      addWarn('getBlankMap : y is < 1 : '+yVal);
+    }
+    if (yVal > MAX_DOWN) {
+      addWarn('getBlankMap : y is > MAX_DOWN : '+yVal);
+    }
+    var xVals = lineParts[1];
+    var xParts = xVals.split(',');
+    for (let j = 0; j < xParts.length; j++) {
+      var xVal = xParts[j];
+      if (xVal < 1) {
+        addWarn('getBlankMap : x is < 1 : '+xVal);
+      }
+      if (xVal > MAX_ACROSS) {
+        addWarn('getBlankMap : x is > MAX_ACROSS : '+xVal);
+      }
+      var key = xVal+'.'+yVal;
+      blankMap.set(key, key);
+      console.log('Setup blank at '+key);
+    }
+  }
+
+  console.log('Setup '+blankMap.size+' blanks');
+
+  if (blankMap.size == 0) {
+    addErrors(['No blanks parsed.', 'Failed to make any blanks from BLANKS string.']);
+  }
+
+  return blankMap;
+}
+
+function initAcrossClues() {
+
+  // The across clues
+  let acrossClueMap = new Map();
+
+  var sepRe = getClueRegExp();
+
+  // setup across clues
+  const acrossLines = getLines(MAX_DOWN, HORIZ_CLUES, 'across');
+  console.log('Setup '+acrossLines.length+' acrossLines');
+
+  validateClueLines('across', acrossLines, MAX_DOWN);
+
+  for (var i=0; i<acrossLines.length; i++) {
+    var line = acrossLines[i];
+    line = line.trim();
+    console.log('clue across line : '+(i+1)+' ...['+line+']');
+    var lineParts = line.split(sepRe);
+    var first = lineParts[0];
+    var m = ''+(i+1);
+    if (m === first) {
+      var num = 0;
+      for (var j=2; j<lineParts.length; j=j+2) {
+        var ct = lineParts[j];
+        if (ct.length > 0) {
+          ct = ct.trim();
+          var delim = '.';
+          if (j < (lineParts.length-1)) {
+            delim = lineParts[j+1];
+          }
+          num++;
+
+          validateClueText('Across clue line ( '+i+1+' ) \n - clue ( '+num+' )\n - delim ( '+delim+' )' , ct);
+
+          var cid = m+'.'+num;
+          console.log('across clue: '+cid+' ...['+ct+'] ['+delim+']');
+          var clue = new Clue(0, i+1, true, cid, '', ct+''+delim, num);
+          var list = acrossClueMap.get(m);
+          if (list == null) {
+            list = [];
+            acrossClueMap.set(m, list);
+          }
+          list.push(clue);
+          console.log('-------> '+name+' --> For row ['+m+'] added across clue#'+list.length+' ['+clue.text+']');
+        }
+      }
+    } else {
+      addErrors(['Invalid across clue', 
+      'Bad across clue line number at clue line # '+(i+1)+'.\nFound ( '+first+' ), but expected ( '+m+' )']);
+    }
+  }
+
+  // join the across clues to the cells
+  for (var y=1; y<=MAX_ACROSS; y++) {
+    var cList = acrossClueMap.get(''+y);
+    if (cList == null) {
+      console.log('No clues when y='+y);
+      continue;
+    }
+    console.log('For y='+y+' ... #clues='+cList.length);
+    var currentClue = null;
+    var disp = -1;
+
+    var cluesMatched = 0;
+
+    for (var x=1; x<=MAX_DOWN; x++) {
+      var cellKey = x+'.'+y;
+
+      // work out start position and length of each clue
+      var cell = CELL_MAP.get(cellKey);
+      if (cell != null) {
+        if (currentClue != null) {
+          currentClue.answerLen++;
+          cell.acrossValue = 'X';
+          cell.acrossPos = currentClue.answerLen-1;
+          cell.acrossClue = currentClue;
+          continue;
+        }
+
+        // skip if only 1 letter long
+        var cellKey2 = (x+1)+'.'+y;
+        var cell2 = CELL_MAP.get(cellKey2);
+        if (cell2 == null) {
+          continue;
+        }
+
+        // inc the disp
+        disp++;
+                    
+        currentClue = cList[disp];
+        if (currentClue == null) {
+          addErrors(['Invalid across clues for grid.', 
+            'No across clue for Cell ( row = '+y+', column = '+x+').\n'+
+            'Missing clue#'+(disp+1)+' on row '+y+'\n'
+            ]);
+
+          continue;
+        }
+
+        currentClue.firstCell = cell;
+        currentClue.x = x;
+        console.log('Across Clue : at '+cellKey+ ' : ['+currentClue.text+']');
+        currentClue.answerLen++;
+
+        cell.acrossValue = 'X';
+        cell.acrossPos = currentClue.answerLen-1;
+        cell.acrossClue = currentClue;
+        cluesMatched++;
+
+      } else {
+
+        // cell is blank 
+        if (currentClue != null) {
+          console.log('Len of Across clue : '+currentClue.answerLen);
+        }
+        currentClue = null;
+      }
+    }
+
+    // end of row
+    if (currentClue != null) {
+      console.log('Len of Across clue : '+currentClue.answerLen);
+    }
+
+    if (cluesMatched == cList.length) {
+      console.log('all clues matched ('+cluesMatched+')');
+    } else if (cluesMatched < cList.length) {
+      console.log('NOT all clues matched. There are ('+cList.length+') but only '+cluesMatched+' fit in grid'); 
+      addErrors(['Invalid across clues for grid.',          
+            'Unused clues on row '+y+'.\n'+
+            'There are '+cList.length+' clues on row '+y+' but only '+cluesMatched+' fit in grid\n'
+            ]);     
+    } else {
+      console.log('Too many clues matched. There are ('+cList.length+') however '+cluesMatched+' fit in grid');  
+      addErrors(['Invalid across clues for grid.',          
+            'Too many clues used on row '+y+'\n'
+            ]); 
+    }
+
+  }
+
+}
+
+function validateClueLines(dir, arr, max) {
+  var v = '';
+  var errMap = null;
+  if (dir == 'across') {
+    v = 'row';
+  } else if (dir == 'down') {
+    v = 'column';
+  }
+  var extra = ''+
+    'Each clue line must be in this format : ( N. LineText ) where :\n'+
+    ' - N is a number matching the '+v+ ' number\n '+
+    ' - LineText is the text of the 1 or many clues\n'+
+    'Each clue line is separated by a space/newline.\n'+
+    'Each clue must be in this format : ( ClueText(E) ) where :\n'+
+    ' - ClueText is the text of one clue\n'+
+    ' - E is a period (.)/exclamation (!)/question mark (?). \n'+
+    'Each clue is separated by a space.\n'+
+    'Examples:\n'+
+    EXAMPLE_CLUES;
+
+  if (arr.length < max) {
+    addErrors(['Invalid '+dir+' clues.', 
+    'Not enough valid '+dir+' clue lines.\n'+
+    'Found '+arr.length+' '+dir+' clue lines but expected between 1 and '+max+'.\n'+
+    extra]);
+  } else if (arr.length > max) {
+    addErrors(['Invalid '+dir+' clues.', 
+    'Too many valid '+dir+' clue lines.\n'+
+    'Found '+arr.length+' '+dir+' clue lines but expected between 1 and '+max+'.\n'+
+    extra]);
+  } 
+}
+
+function initDownClues() {
+
+  // The down clues
+  let downClueMap = new Map();
+
+  // setup down clues
+  const downLines = getLines(MAX_ACROSS, VERT_CLUES, 'down');
+
+  console.log('Setup '+downLines.length+' downLines');
+
+  validateClueLines('down', downLines, MAX_ACROSS);
+
+  var sepRe = getClueRegExp();
+
+  for (var i=0; i<downLines.length; i++) {
+    var line = downLines[i];
+    line = line.trim();
+    console.log('clue down line : '+(i+1)+' ...['+line+']');
+    var lineParts = line.split(sepRe);
+    var first = lineParts[0];
+    var m = ''+(i+1);
+    if (m === first) {
+      var num = 0;
+      for (var j=2; j<lineParts.length; j=j+2) {
+        var ct = lineParts[j];
+        if (ct.length > 0) {
+          ct = ct.trim();
+
+          var delim = '.';
+          if (j < (lineParts.length-1)) {
+            delim = lineParts[j+1];
+          }
+          num++;
+
+          validateClueText('Down clue line ( '+i+1+' ) clue ( '+num+' ) delim ('+delim+' )' , ct);
+
+          var cid = m+'.'+num;
+          console.log('down clue: '+cid+' ...['+ct+'] ['+delim+']');
+          var clue = new Clue(i+1, 0, false, cid, '', ct+''+delim, num);
+          var list = downClueMap.get(m);
+          if (list == null) {
+            list = [];
+            downClueMap.set(m, list);
+          }
+          list.push(clue);
+          console.log('-------> '+name+' --> For column ['+m+'] added down clue#'+list.length+' ['+clue.text+']');
+        }
+      }
+    } else {
+      addErrors('Invalid down clue', 
+      'Bad down clue line number at clue line # '+(i+1)+'.\nFound ( '+first+' ), but expected ( '+m+' )');
+    }
+  }
+
+  // join the down clues to the cells
+  for (var x=1; x<=MAX_ACROSS; x++) {
+    var cList = downClueMap.get(''+x);
+    if (cList == null) {
+      console.log('No clues when x='+x);
+      continue;
+    }
+    console.log('For x='+x+' ... #clues='+cList.length);
+
+    var currentClue = null;
+    var disp = -1;
+
+    var cluesMatched = 0;
+
+    for (var y=1; y<=MAX_DOWN; y++) {
+      var cellKey = x+'.'+y;
+                
+      // work out start position and length of each clue
+ 
+      var cell = CELL_MAP.get(cellKey);
+      if (cell != null) {
+
+        if (currentClue != null) {
+          currentClue.answerLen++;
+                        
+          cell.downValue = 'X';
+          cell.downPos = currentClue.answerLen-1;
+                        
+          cell.downClue = currentClue;
+          continue;
+        }
+
+        // skip if only 1 letter long
+        var cellKey2 = x+'.'+(y+1);
+        var cell2 = CELL_MAP.get(cellKey2);
+        if (cell2 == null) {
+          continue;
+        }
+        // inc the disp
+        disp++;
+
+        currentClue = cList[disp];
+
+        if (currentClue == null) {
+          addErrors(['Invalid down clues for grid', 
+            'No down clue for Cell ( row = '+y+', column = '+x+').\n'+
+            'Missing clue#'+(disp+1)+' on column '+x+'\n'
+            ]);
+
+          continue;
+        }                                
+        currentClue.firstCell = cell;
+        currentClue.y = y;
+        console.log('Down Clue : at '+cellKey+ ' : ['+currentClue.text+']');
+        currentClue.answerLen++;
+                    
+        cell.downValue = 'X';
+        cell.downPos = currentClue.answerLen-1;
+                    
+        cell.downClue = currentClue;
+        cluesMatched++;
+
+
+      } else {
+        // cell is blank 
+        if (currentClue != null) {
+          console.log('Len of Down clue : '+currentClue.answerLen);
+        }
+        currentClue = null;
+      }
+    }
+
+    // end of row
+    if (currentClue != null) {
+      console.log('Len of Down clue : '+currentClue.answerLen);
+    }
+
+    if (cluesMatched == cList.length) {
+      console.log('all clues matched ('+cluesMatched+')');
+    } else if (cluesMatched < cList.length) {
+      console.log('NOT all clues matched. There are ('+cList.length+') but only '+cluesMatched+' fit in grid'); 
+      addErrors(['Invalid down clues for grid.',          
+            'Unused clues on column '+x+'.\n'+
+            'There are '+cList.length+' clues on column '+x+' but only '+cluesMatched+' fit in grid\n'
+            ]);     
+    } else {
+      console.log('Too many clues matched. There are ('+cList.length+') however '+cluesMatched+' fit in grid');  
+      addErrors(['Invalid down clues for grid.',          
+            'Too many clues used on column '+x+'\n'
+            ]); 
+    }
+
+  }
+
+}
+
+function validateClueText(info, s) {
+  for (var i=0; i<s.length; i++) {
+    // charCodeAt : returns an integer between 0 and 65535 representing the UTF-16 code unit at the given index.
+    var n = s.charCodeAt(i);
+    var c = s[i];
+    console.log('C=['+c+'] A=['+n+']');
+    if (n >=32 && n <= 127) {
+      // normal ascii set (not control chars)
+    } else if (n >=128 && n <= 800) {
+      // range of extended chars eg accents
+    } else {
+      errors.add([ 'Invalid character in clue', info+'\n'
+      +' - text = '+s+ '\n'
+      +' - char#='+(i+1)+'\n'
+      +' - char=['+c+']\n'
+      +' - ascii='+n ]);
+    }
+  }
+}
+
+function validateClues() {
+
+  // target format:
+  // (Y,X,A/D,ClueId,Answer,Clue)
+        
+  var clues = '';
+  var numAcrossClues = 0;
+  var numDownClues = 0;
+  for (var y=1; y<=MAX_DOWN; y++) {
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      var cell = CELL_MAP.get(cellKey);
+      if (cell != null) {
+        var aClue = cell.acrossClue;
+        if (aClue != null) {
+          var firstCellKey = getFirstCellKey(aClue);
+          if (firstCellKey === cellKey) {
+            clues += toInputFormat(aClue)+'\n';
+            numAcrossClues++;
+            console.log('Added Across Clue#'+numAcrossClues+'  : '+toInputFormat(aClue));
+          }
+        }
+        var dClue = cell.downClue;
+        if (dClue != null) {
+          var firstCellKey = getFirstCellKey(dClue);
+          if (firstCellKey === cellKey) {
+            clues += toInputFormat(dClue)+'\n';
+            numDownClues++;
+            console.log('Added Down Clue#'+numDownClues+'  : '+toInputFormat(dClue));
+          }
+        }
+      }
+    }
+  }
+        
+  console.log('# across clues = '+numAcrossClues);
+
+  if (numAcrossClues == 0) {
+    addWarn('validateClues : No across clues');
+  }
+  console.log('# down clues = '+numDownClues);
+  if (numDownClues == 0) {
+    addWarn('validateClues : No down clues');
+  }
+  console.log('# total clues = '+(numAcrossClues+numDownClues));
+        
+  console.log('InputFormat=' + clues);
+
+  clues = clues.trim();
+  var clueLines = clues.split('\n');
+        
+  console.log(clueLines.length+ ' clues');
+        
+  var n = 0;
+
+  // Validate clues
+  // (Y,X,A/D,ClueId,Answer,Clue)
+        
+  for (var i=0;i<clueLines.length; i++) {
+    n = i+1;
+    var cl = clueLines[i];
+
+    console.log('#'+n+' : '+cl);
+    var p = cl.split('|');
+    console.log('#'+n+' : #parts='+p.length);
+    if (p.length==6) {
+                
+      var y = p[0].trim();
+      var yInt = getInteger(y);
+      if (yInt < 1) {
+        console.log('Clue#'+n+' : invalid Y value. <1');
+        addWarn('validateClues : Clue#'+n+' : invalid Y value. <1 : '+cl);
+        continue;
+      }
+      if (yInt > MAX_DOWN) {
+        addWarn('validateClues : Clue#'+n+' : invalid Y value : '+yInt+'. >max : '+cl);
+        continue;
+      }
+      console.log('y='+yInt);
+                
+      var x = p[1].trim();
+      var xInt = getInteger(x);
+      if (xInt < 1) {
+        console.log('Clue#'+n+' : invalid X value. <1');
+        addWarn('validateClues : Clue#'+n+' : invalid X value. <1 : '+cl);
+        continue;
+      }
+      if (xInt > MAX_ACROSS) {
+        console.log('Clue#'+n+' : invalid X value. >max');
+        addWarn( 'validateClues : Clue#'+n+' : invalid X value : '+xInt+'. >max : '+cl);
+        continue;
+      }
+      console.log('x='+xInt);
+              
+      var d = p[2].trim();
+      d = d.toUpperCase();
+      var isAcross = true;
+      if (d !== 'A' && d !== 'D') {
+        console.log('Clue#'+n+' : invalid Direction value : '+d);
+        addWarn('validateClues : Clue#'+n+' : invalid Direction value : '+d+' : '+cl);
+        continue;
+      }
+      if (d === 'D') {
+        isAcross = false;
+      }
+      console.log('isAcross='+isAcross);
+                
+      clueId = p[3].trim();
+      console.log('clueId (info only)='+clueId);
+
+      var answer = p[4].trim();
+      answer = answer.toUpperCase();
+      var answerLen = answer.length;
+
+      if (answerLen < 0) {
+        console.log('Clue#'+n+' : answer length is zero');
+        addWarn('validateClues : Clue#'+n+' : answer length is zero : '+cl);
+        continue;
+      }
+      if (isAcross) {
+        if (answerLen > MAX_ACROSS) {
+          console.log('Clue#'+n+' : across answer length too long : '+answerLen);
+          addWarn('validateClues : Clue#'+n+' : across answer length too long : '+answerLen+ ' : '+cl);
+          continue;
+        } 
+      } else {
+        if (answerLen > MAX_DOWN) {
+          console.log('Clue#'+n+' : down answer length too long : '+answerLen);
+          addWarn('validateClues : Clue#'+n+' : down answer length too long : '+answerLen+ ' : '+cl);
+          continue;
+        } 
+      }
+                
+      console.log('answer='+answer);
+                
+      var text = p[5].trim();
+      console.log('text=['+text+']');
+                              
+      var clueIdParts = clueId.split('.');
+      var clueNum = 0;
+      if (clueIdParts.length >= 2) {
+         clueNum = 1 * clueIdParts[1];
+      }
+      var clue = new Clue(xInt, yInt, isAcross, clueId, answer, text, clueNum);
+                
+      var key = xInt+'.'+yInt;
+      var firstCell = CELL_MAP.get(key);
+      if (firstCell == null) {
+        console.log('Clue#'+n+' : no firstcell for clue : '+toInputFormat(clue));
+        addWarn('validateClues : Clue#'+n+' : no firstcell for clue : '+toInputFormat(clue)+' : '+cl);
+        continue;
+      }
+
+      clue.firstCell = firstCell;
+
+      var uniqLoc = uniqLocation(clue);
+
+      if (CLUE_MAP.has(uniqLoc)) {
+        console.log('Clue#'+n+' uses unique location ('+uniqLoc+') already in use. ');
+        addWarn('validateClues : Clue#'+n+' uses unique location ('+uniqLoc+') already in use. : '+cl);
+        continue;
+      } else {
+        CLUE_MAP.set(uniqLoc, clue);
+        console.log('#'+n+' success');
+      }
+        
+    } else {
+      console.log("Invalid clue line : ["+cl+"]");
+      addWarn("validateClues : Invalid clue line : ["+cl+"]. Format : Y|X|A/D|ClueId|Answer|Clue");
+    }
+  }
+}
+
+function setupLabels() {
+
+  // setup labels
+  var latestLabelNum = 0;
+  var n = 0;
+  for (var y=1; y<=MAX_DOWN; y++) {
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      n++;
+      var cellKey = x+'.'+y;
+      console.log('Cell#'+n+' : ... ====> .... row = '+y+' .... col = '+x);
+      var c = CELL_MAP.get(cellKey);
+      if (c == null) {
+        continue;
+      } 
+                
+      var acrossClue = c.acrossClue;
+      if (acrossClue != null) {
+        console.log('.... AcrossClue : '+toInputFormat(acrossClue));
+        var acrossPos = c.acrossPos;
+        if (acrossPos == 0) {
+          latestLabelNum++;
+          c.label = latestLabelNum;
+          console.log('............. Label via ACROSS clue ===> '+c.label);
+          acrossClue.firstCell = c;
+                        
+          // new for fr
+          c.acrossLabel = acrossClue.n;
+          console.log('.... cell acrossLabel = '+c.acrossLabel);
+
+          console.log('.... clue firstCell = '+toId(acrossClue.firstCell));
+        }
+      } 
+
+      var downClue = c.downClue;
+      if (downClue != null) {
+        console.log('.... DownClue : '+toInputFormat(downClue));
+                    
+        var downPos = c.downPos;
+        if (downPos == 0) {
+          // only assign a new label if there is no label on the cell already
+          if (c.label == 0) {
+            latestLabelNum++;
+            c.label = latestLabelNum;
+            console.log('............. Label via DOWN clue ===> '+c.label);
+          } else {
+            c.label = latestLabelNum;
+            console.log('............. Label via DOWN (re-use ACROSS) clue ===> '+c.label);
+          }
+                      
+          downClue.firstCell = c;
+                      
+          // new for fr
+          c.downLabel = downClue.n;
+          console.log('.... cell downLabel = '+c.downLabel);
+
+          console.log('.... clue firstCell = '+toId(downClue.firstCell));
+                      
+        }
+      }
+    }
+  }
+}
+
+function paramsMaxAcross() {
+  return MAX_ACROSS + 2;
+}
+
+function paramsMaxDown() {
+  return MAX_DOWN + 2;
+}
+
+function addInfo(msg) {
+  MESSAGES_INFO.push(msg);
+}
+
+function addWarn(msg) {
+  MESSAGES_WARN.push(msg);
+}
+
+function addError(msg) {
+  MESSAGES_ERROR.push(msg);
+}
+
+function addErrors(arr) {
+  if (!Array.isArray(arr)) {
+    try {
+      throw new Error("CODE_ERROR : addErrors arg is not an array");
+    } catch (e) {
+      alert("arr = [["+arr+"]] \n"+e.stack);
+    }
+  }
+  for (var i=0; i<arr.length; i++) {
+    MESSAGES_ERROR.push(arr[i]);
+  }
+}
+
+function addErrorAtStart(msg) {
+  MESSAGES_ERROR.unshift(msg);
+}
+
+// ###################################################################
+// Logging functions
+//
+// ###################################################################
+
+function header() {
+  var hdr = HEADER_MAP.get(MAX_ACROSS);
+  return hdr;
+}
+
+function printCells() {
+  var hdr = header();
+  console.log('Text:');
+  console.log(hdr);  
+       
+  for (var y=1; y<=MAX_DOWN; y++) {
+    var row = '  '+formatNum(y)+ ' | ';
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+"."+y;
+      var c = CELL_MAP.get(cellKey);
+      if (c == null) {
+        row += '   .';
+      } else {
+
+        // check based on adjacent cell being available
+        if (hasCellAdjacentAcross(c, 1) || hasCellAdjacentAcross(c, -1)) {
+          var acrossClue = c.acrossClue;
+          if (acrossClue == null) {
+            console.log('Cell at '+cellKey+ ' has no across clue and should have one');
+            addWarn('printCells : Cell at ( row : '+y+' ; column : '+x+' ) no across clue and should have one');
+          }
+        }
+        if (hasCellAdjacentDown(c, 1) || hasCellAdjacentDown(c, -1)) {
+          var downClue = c.downClue;
+          if (downClue == null) {
+            console.log('Cell at '+cellKey+ ' has no down clue and should have one');
+            addWarn('printCells : Cell at ( row : '+y+' ; column : '+x+' ) no down clue and should have one');
+          }
+        }
+
+        // simpler check - make sure each cell has at least one across / down clue
+        var acrossClue = c.acrossClue;
+        if (acrossClue != null) {
+          var acrossValue = c.acrossValue;
+          row += '   '+formatNum(acrossValue);
+        } else {
+          var downClue = c.downClue;
+          if (downClue != null) {
+            var downValue = c.downValue;
+            row += '   '+formatNum(downValue);
+          } else {
+            console.log('Cell at '+cellKey+ ' has no across/down clue');
+            addWarn('printCells : Cell at ( row : '+y+' ; column : '+x+' ) has no across or down clue');
+          }
+        }
+      }
+    }
+    console.log(row);
+  }
+}
+
+function printLabels() {
+  var hdr = header();
+  console.log('Labels:');
+  console.log(hdr);
+
+  for (var y=1; y<=MAX_DOWN; y++) {
+    var row = '  '+formatNum(y)+ ' | ';
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+"."+y;
+      var c = CELL_MAP.get(cellKey);
+      if (c == null) {
+        row += '   .';
+      } else {
+        var label = c.label;
+        if (label > 0) {
+          row += ' '+formatNum(label);
+        } else {
+          row += '   x';
+        }
+      }
+    }
+    console.log(row);
+  }
+}
+
+function printAcrossLabels() {
+  var hdr = header();
+  console.log('AcrossLabels:');
+  console.log(hdr);
+
+  for (var y=1; y<=MAX_DOWN; y++) {
+    var row = '  '+formatNum(y)+ ' | ';
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+"."+y;
+      var c = CELL_MAP.get(cellKey);
+      if (c == null) {
+        row += '   .';
+      } else {
+	      var acrossClue = c.acrossClue;
+        if (acrossClue != null) {
+	        var aLabel = c.acrossLabel;
+          row += ' '+formatNum(aLabel);
+        } else {
+          row += '   x';
+        }
+      }
+    }
+    console.log(row);
+  }
+}
+
+function printDownLabels() {
+  var hdr = header();
+  console.log('DownLabels:');
+  console.log(hdr);
+
+  for (var y=1; y<=MAX_DOWN; y++) {
+    var row = '  '+formatNum(y)+ ' | ';
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+"."+y;
+      var c = CELL_MAP.get(cellKey);
+      if (c == null) {
+        row += '   .';
+      } else {
+	      var downClue = c.downClue;
+        if (downClue != null) {
+	        var aLabel = c.downLabel;
+          row += ' '+formatNum(aLabel);
+        } else {
+          row += '   x';
+        }
+      }
+    }
+    console.log(row);
+  }
+}
+
+function printAcrossClues() {
+  console.log('AcrossClues:');
+  var list1 = getAcrossClues();
+  for (var i=0; i<list1.length; i++) {
+    var clue = list1[i];
+    var firstCell = clue.firstCell;
+    if (firstCell == null) {
+      console.log('Across clue has no first cell : '+toInputFormat(downClue));
+      addWarn('printAcrossClues : Across clue has no first cell : '+toInputFormat(downClue));
+      continue;
+    }
+    var lab = firstCell.label;
+    var extra = '';
+    var alab = firstCell.acrossLabel;
+    if (alab != 0) {
+      extra = ' ('+alab+') ';
+    }
+    console.log(lab+'. '+extra+clue.text);
+    console.log('............ Ans = ['+clue.answer+']');
+    var lastPos = firstCell.x+(clue.answer.length-1);
+    console.log('............ Row = '+firstCell.y +' ... Col : '+firstCell.x + ' - '+lastPos);
+  }
+}
+
+function printDownClues() {
+  console.log('DownClues:');
+  var list1 = getDownClues();
+  for (var i=0; i<list1.length; i++) {
+    var clue = list1[i];
+    var firstCell = clue.firstCell;
+    if (firstCell == null) {
+      console.log('Down clue has no first cell : '+toInputFormat(downClue));
+      addWarn('printDownClues : Down clue has no first cell : '+toInputFormat(downClue));
+      continue;
+    }
+    var lab = firstCell.label;
+    var extra = '';
+    var alab = firstCell.downLabel;
+    if (alab != 0) {
+      extra = ' ('+alab+') ';
+    }
+    console.log(lab+'. '+extra+clue.text);
+    console.log('............ Ans = ['+clue.answer+']');
+    var lastPos = firstCell.x+(clue.answer.length-1);
+    console.log('............ Row = '+firstCell.y +' ... Col : '+firstCell.x + ' - '+lastPos);
+  }
+}
+
+// ###################################################################
+// Param Actions
+//
+// ###################################################################
+
+/**
+* For click on param cell
+* @param evt Event
+*/
+
+function paramCellSelected(evt) {
+  console.log(date1()+' ----> Enter paramCellSelected : for click on cell');
+  console.log(date1()+' Q1 event type = '+evt.type);
+  var el = evt.currentTarget;
+  console.log(date1()+' A1 elem clicked on : ' + el.id);
+  
+  var ec = el.style.backgroundColor;
+  if (ec == 'black') {
+    el.style.backgroundColor = 'transparent';
+  } else {
+    el.style.backgroundColor = 'black';
+  }
+
+  handleParams();
+
+  console.log(date1()+' <---- Exit paramCellSelected');
+}
+
+
+
+// ###################################################################
+// Actions
+//
+// ###################################################################
+
+/**
+* For letter up
+* @param elem : input element
+* @param dataname : name of data property
+*/
+
+function arrowUp(elem, dataname) {
+  console.log(date1()+' ----> Enter arrowUp : for Arrow keystroke Up (all arrow directions: up, down, left, right)');
+  var cac = elem.getAttribute('data-cac');
+  var acls = 'cac' + cac;
+  var asel = isbgon(acls);
+  console.log(date1()+' W4 across sel : '+asel);
+  var cdo = elem.getAttribute('data-cdo');
+  var dcls = 'cdo' + cdo;
+  var dsel = isbgon(dcls);
+  console.log(date1()+' W5 down sel : '+dsel);
+  var nelid = elem.getAttribute(dataname);
+  var nel = document.getElementById(nelid);
+  if (nel == null) {
+    console.log(date1()+' WW !!!error failed to get id of target cell for arrow');
+  }
+  var cacn = nel.getAttribute('data-cac');
+  var acls = 'cac' + cacn;
+  var cdon = nel.getAttribute('data-cdo');
+  var dcls = 'cdo' + cdon;
+
+  resetCells();
+  resetClues();
+  if (asel == 'y') {
+    if (cacn == '0') {
+      bgClueDown(dcls, nelid);
+    } else {
+      bgClueAcross(acls, nelid);
+    }
+  } else {
+    if (cdon == '0') {
+      bgClueAcross(acls, nelid);
+    } else {
+      bgClueDown(dcls, nelid);
+    }
+  }
+  setFocus(nelid);
+  console.log(date1()+' <---- Exit arrowUp');
+}
+
+/**
+* Set background for cells for across clue and set focus
+* @param acls : css class of across clue
+*/
+
+function bgCellsClueAcross(acls) {
+  console.log(date1()+' ----> Enter bgCellsClueAcross : : set background for cells for across clue');
+  var fel = null;
+  var elems = document.getElementsByClassName(acls);
+  for (var i=0; i<elems.length; i++) {
+    var el = elems[i];
+    if (i==0) {
+      bgcon(el.id);
+      fel = el;
+      console.log(date1()+' G2 set bg ly for active cell : across : '+el.id);
+    } else {
+      bgon(el.id);
+      console.log(date1()+' G3 set bg y for nonactive cell : across : '+el.id);
+    }
+  }
+  bgon(acls);
+  console.log(date1()+' G4 set bg y for across clue : '+acls);
+  var felid = fel.getAttribute('data-cid');
+  setFocus(felid);
+  currentclue('a'+acls);
+  console.log(date1()+' <---- Exit bgCellsClueAcross');
+}
+
+/**
+* Set background for cells for down clue and set focus
+* @param dcls : css class of down clue
+*/
+
+function bgCellsClueDown(dcls) {
+  console.log(date1()+' ----> Enter bgCellsClueDown : set background on down clue');
+  var fel = null;
+  var elems = document.getElementsByClassName(dcls);
+  for (var i=0; i<elems.length; i++) {
+    var el = elems[i];
+    if (i==0) {
+      bgcon(el.id);
+      fel = el;
+      console.log(date1()+' F2 set bg ly for active cell : down : '+el.id);
+    } else {
+      bgon(el.id);
+      console.log(date1()+' F3 set bg y for nonactive cell : down : '+el.id);
+    }
+  }
+  bgon(dcls);
+  console.log(date1()+' F4 set bg y for down clue : '+dcls);
+  var felid = fel.getAttribute("data-cid");
+  setFocus(felid);
+  currentclue('a'+dcls);
+  console.log(date1()+' <---- Exit bgCellsClueDown');
+}
+
+/**
+* Set background on for across clue
+* @param acls : css class of across clue
+* @param id : css id of input
+*/
+
+function bgClueAcross(acls, id) {
+  console.log(date1()+' ----> Enter bgClueAcross : set background on across clue');
+  var elems = document.getElementsByClassName(acls);
+  for (var i=0; i<elems.length; i++) {
+    var el = elems[i];
+    if (el.id == ('itembg-'+id)) {
+      bgcon(el.id);
+      console.log(date1()+' G2 set bg ly for active cell : across : '+el.id);
+    } else {
+      bgon(el.id);
+      console.log(date1()+' G3 set bg y for nonactive cell : across : '+el.id);
+    }
+  }
+  bgon(acls);
+  currentclue('a'+acls);
+  console.log(date1()+' G4 set bg y for across clue : '+acls);
+  console.log(date1()+' <---- Exit bgClueAcross');
+}
+
+/**
+* Set background on for down clue
+* @param dcls : css class of down clue
+* @param id : css id of input
+*/
+
+function bgClueDown(dcls, id) {
+  console.log(date1()+' ----> Enter bgClueDown : set background on down clue');
+  var elems = document.getElementsByClassName(dcls);
+  for (var i=0; i<elems.length; i++) {
+    var el = elems[i];
+    if (el.id == ('itembg-'+id)) {
+      bgcon(el.id);
+      console.log(date1()+' F2 set bg ly for active cell : down : '+el.id);
+    } else {
+      bgon(el.id);
+      console.log(date1()+' F3 set bg y for nonactive cell : down : '+el.id);
+    }
+  }
+  bgon(dcls);
+  currentclue('a'+dcls);
+  console.log(date1()+' F4 set bg y for down clue : '+dcls);
+  console.log(date1()+' <---- Exit bgClueDown');
+}
+
+/**
+* Set background on / lightyellow for focus cell
+* @param id : css id of element
+*/
+
+function bgcon(id) {
+  var el = document.getElementById(id);
+  console.log(date1()+' QQ bgcon : el : '+el.id+ ' classList : '+el.classList);
+  el.style.backgroundColor = '#FFE1A4';
+}
+
+/**
+* Set background off / transparent for cell
+* @param id : css id of element
+*/
+
+function bgoff(id) {
+  var el = document.getElementById(id);
+  console.log(date1()+' QW bgoff : el : '+el.id+ ' classList : '+el.classList);
+  el.style.backgroundColor = 'transparent';
+}
+
+/**
+* Set background on / yellow for cell
+* @param id : css id of element
+*/
+
+function bgon(id) {
+  var el = document.getElementById(id);
+  if (el == null) {
+    showErrorMessage('No valid cell at : '+id);
+  } else {
+    console.log(date1()+' QN bgon : el : '+el.id+ ' classList : '+el.classList);
+    el.style.backgroundColor = 'yellow';
+  }
+
+}
+
+/**
+* For click on clue
+* @param evt Event
+*/
+
+function clueSelected(evt) {
+  console.log(date1()+' ----> Enter clueSelected : for click on clue');
+  console.log(date1()+' U1 event type = '+evt.type);
+  resetCells();
+  resetClues();
+  var elem = evt.currentTarget;
+  console.log(date1()+' U2 elem clicked on : [' + elem.id +']');
+  if (elem.classList.contains("cw-clues-list-across")) {
+     bgCellsClueAcross(elem.id);
+  } else if (elem.classList.contains("cw-clues-list-down")) {
+     bgCellsClueDown(elem.id);
+  }
+  console.log(date1()+' <---- Exit clueSelected');
+}
+
+/**
+* For click on cell
+* @param evt Event
+*/
+
+function cellSelected(evt) {
+  console.log(date1()+' ----> Enter cellSelected : for click on cell');
+  console.log(date1()+' Q1 event type = '+evt.type);
+  var elem = evt.currentTarget;
+  console.log(date1()+' A1 elem clicked on : ' + elem.id);
+  var cac = elem.getAttribute('data-cac');
+  var acls = 'cac' + cac;
+  var asel = isbgon(acls);
+  console.log(date1()+' B1 across sel : '+asel);
+  var cdo = elem.getAttribute('data-cdo')
+  var dcls = 'cdo' + cdo;
+  var dsel = isbgon(dcls);
+  console.log(date1()+' C1 down sel : '+dsel);
+  resetCells();
+  resetClues();
+  if (cac != '0') {
+    console.log(date1()+' D1 across clue exists');
+    if (cdo != '0') {
+      console.log(date1()+' E1 down clue exists');
+      if (asel == 'y') {
+        console.log(date1()+' F1 across clue selected so switch to down clue');
+        bgClueDown(dcls, elem.id);
+      } else {
+        console.log(date1()+' G1 no clue selected or down clue selected so switch to across clue');
+        bgClueAcross(acls, elem.id);
+      }
+    } else {
+      console.log(date1()+' H1 down clue NOT exists');
+      bgClueAcross(acls, elem.id);
+    }
+  } else {
+    console.log(date1()+' J1 across clue NOT exists');
+    bgClueDown(dcls, elem.id);
+  }
+  console.log(date1()+' <---- Exit cellSelected');
+}
+
+/**
+* Set current clue text
+* @param id : css id of select anchor for clue
+*/
+
+function currentclue(id) {
+  var ael = document.getElementById(id);
+  var num = ael.getAttribute('data-number');
+  var frid = ael.getAttribute('data-frid');
+  var atext = ael.innerHTML;
+  var cel = document.getElementById('cw-selclue');
+  cel.innerHTML=num+'. '+' ( '+frid+' ) '+atext;
+  cel.style.display='block';
+}
+
+/**
+* Time for logging
+*/
+
+function date1() {
+  var date = new Date;
+  var s = date.getSeconds();
+  var m = date.getMinutes();
+  var h = date.getHours();
+  return format2(h)+':'+format2(m)+':'+format2(s);
+}
+
+/**
+* Is background on / yellow / lightyellow for cell
+* @param id : css id of element
+*/
+
+function isbgon(id) {
+  var el = document.getElementById(id);
+  if ( el == null ) {
+    return 'n';
+  }
+  console.log(date1()+' P1 el : '+el.id);
+  var ec = el.style.backgroundColor;
+  if (ec == 'yellow') {
+    return 'y';
+  } else if (ec == '#FFE1A4') {
+    return 'y';
+  }
+  return 'n';
+}
+
+/**
+* Format time element for logging
+*/
+
+function format2(n) {
+  if (n <= 9) {
+    return '0' + n;
+  }
+  return '' + n;
+}
+
+/**
+* For key up
+* @param evt Event
+*/
+
+function keyUp(evt) {
+  console.log(date1()+' ----> Enter keyUp : for key up');
+  console.log(date1()+' W1 event type = '+evt.type);
+  var elem = evt.currentTarget;
+  console.log(date1()+' W2 elem clicked on : ' + elem.id);
+  var keyevt = evt.key;
+  console.log(date1()+' W3 keyevt : [' + keyevt + ']');
+  var key = evt.keyCode;
+  console.log(date1()+' W3 keycode : [' + key + ']');
+  var charcode = evt.charCode;
+  console.log(date1()+' W3 charcode : [' + charcode + ']');
+  if (keyevt == 'ArrowUp') {
+    console.log(date1()+' WM : Found ArrowUp');
+    arrowUp(elem, 'data-iup');
+  } else if (keyevt == 'ArrowDown') {
+    console.log(date1()+' WM : Found ArrowDown');
+    arrowUp(elem, 'data-ido');
+  } else if (keyevt == 'ArrowLeft') {
+    console.log(date1()+' WM : Found ArrowLeft');
+    arrowUp(elem, 'data-ile');
+  } else if (keyevt == 'ArrowRight') {
+    console.log(date1()+' WM : Found ArrowRight');
+    arrowUp(elem, 'data-iri');
+  } else if (key == 8) {
+    console.log(date1()+' WQ : Found Backspace');
+    elem.value = '';
+    letterUp(elem, -1);
+  } else if (key == 9) {
+    console.log(date1()+' WR : Found Tab');
+    if (evt.shiftKey) {
+      console.log(date1()+' WK : Found Shift-Tab');
+      tabUp(elem, -1);
+    } else {
+      tabUp(elem, 1);
+    }
+  } else if (key >= 65 && key <= 90) {
+    console.log(date1()+' WS : Found UpperLetter');
+    elem.value = ''+keyevt;
+    console.log(date1()+' WS : set value to : ['+keyevt+']');
+    letterUp(elem, 1);
+  } else {
+    console.log(date1()+' WU : Ignore invalid key ' + key);
+    evt.preventDefault();
+    console.log(date1()+' <---- Exit keyUp');
+    return false;
+  }
+  console.log(date1()+' <---- Exit keyUp');
+}
+
+/**
+* For key down
+* @param evt Event
+*/
+
+function keyDown(evt) {
+  console.log(date1()+' ----> Enter keyDown : for key down');
+  console.log(date1()+' W1 event type = '+evt.type);
+  var elem = evt.currentTarget;
+  console.log(date1()+' W2 elem clicked on : ' + elem.id);
+  var keyevt = evt.key;
+  console.log(date1()+' W3 keyevt : [' + keyevt + ']');
+  var key = evt.keyCode;
+  console.log(date1()+' W3 keycode : [' + key + ']');
+  var charcode = evt.charCode;
+  console.log(date1()+' W3 charcode : [' + charcode + ']');
+  if (key == 8) {
+    console.log(date1()+' WQ : Found Backspace');
+  } else if (key == 9) {
+    console.log(date1()+' WR : Found Tab');
+  } else if (key >= 65 && key <= 90) {
+    console.log(date1()+' WS : Found UpperLetter');
+  } else if (key >= 97 && key <= 122) {
+    console.log(date1()+' WT : Found LowerLetter');
+  } else {
+    console.log(date1()+' WU : Ignore invalid key ' + key);
+  }
+  evt.preventDefault();
+  console.log(date1()+' <---- Exit keyDown');
+  return false;
+}
+
+/**
+* For letter up
+* @param elem : input element
+* @param delta : 1 is forward, -1 is backward
+*/
+
+function letterUp(elem, delta) {
+  console.log(date1()+' ----> Enter letterUp : for Letter up and backspace/delete');
+  var cac = elem.getAttribute('data-cac');
+  var acls = "cac" + cac;
+  var asel = isbgon(acls);
+  console.log(date1()+' W4 across sel : '+asel);
+  var cdo = elem.getAttribute('data-cdo');
+  var dcls = "cdo" + cdo;
+  var dsel = isbgon(dcls);
+  console.log(date1()+' W5 down sel : '+dsel);
+  if (asel == "y") {
+    console.log(date1()+' W6 across selected');
+    var elems = document.getElementsByClassName(acls);
+    var ndisp = -1;
+    console.log(date1()+' W7 elems len : '+elems.length);
+    for (var i=0; i<elems.length; i++) {
+      var el = elems[i];
+      if (el.id == ('itembg-' + elem.id)) {
+        bgon(el.id);
+        console.log(date1()+' W8 bg y done on : '+el.id);
+        ndisp = i + delta;
+        console.log(date1()+' W9 disp of elem to focus : '+ndisp);
+        break;
+      }
+    }
+    if (ndisp < 0) {
+      ndisp = 0;
+    } else if (ndisp >= elems.length) {
+      ndisp = elems.length-1;
+    }
+    if (ndisp >=0 && ndisp < elems.length) {
+      var nel = elems[ndisp];
+      var rcid = nel.getAttribute("data-cid");
+      setFocus(rcid);
+      console.log(date1()+' WA across clue : focus done on : '+rcid);
+      bgcon(nel.id);
+      console.log(date1()+' WB bg ly on : '+nel.id);
+    }
+  } else {
+    console.log(date1()+' WC down selected');
+    var elems = document.getElementsByClassName(dcls);
+    var ndisp = -1;
+    console.log(date1()+' WD elems len : '+elems.length);
+    for (var i=0; i<elems.length; i++) {
+      var el = elems[i];
+      if (el.id == ('itembg-' + elem.id)) {
+        bgon(el.id);
+        console.log(date1()+' WE bg y done on : '+el.id);
+        ndisp = i + delta;
+        console.log(date1()+' WF disp of elem to focus : '+ndisp);
+        break;
+      }
+    }
+    if (ndisp < 0) {
+      ndisp = 0;
+    } else if (ndisp >= elems.length) {
+      ndisp = elems.length-1;
+    }
+    if (ndisp >=0 && ndisp < elems.length) {
+      var nel = elems[ndisp];
+      var rcid = nel.getAttribute("data-cid");
+      setFocus(rcid);
+      console.log(date1()+' WG down clue : focus done on : '+rcid);
+      bgcon(nel.id);
+      console.log(date1()+' WH bg ly on : '+nel.id);
+    }
+
+  }
+
+  console.log(date1()+' save');
+
+  // save on each letter up
+  saveInPlay();
+
+  console.log(date1()+' <---- Exit letterUp');
+}
+
+/**
+* Set background transparent for all cells
+*/
+
+function resetCells() {
+
+  var elems = document.getElementsByClassName('cw-itembg');
+  for (var i=0; i<elems.length; i++) {
+    elems[i].style.backgroundColor = 'transparent';
+  }
+}
+
+/**
+* Set background transparent for all clues
+*/
+
+function resetClues() {
+  var elems = document.getElementsByClassName('cw-clues-list-item');
+  for (var i=0; i<elems.length; i++) {
+    elems[i].style.backgroundColor = 'transparent';
+  }
+}
+
+/**
+* Set focus for element
+* @param id : css id of element
+*/
+
+function setFocus(id) {
+  window.setTimeout(function () { 
+    var el = document.getElementById(id);
+    if (el != null) {
+      el.focus(); 
+    }
+  }, 0); 
+}
+
+function showPage() {
+  console.log('enter showPage at ' +new Date().toUTCString());
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("welcome").style.display = "block";
+  console.log('exit showPage at ' +new Date().toUTCString());
+}
+
+/**
+* For tab up
+* @param elem : input element
+* @param delta : 1 is forward, -1 is backward
+*/
+
+function tabUp(elem, delta) {
+  console.log(date1()+' ----> Enter tabUp : for Tab up');
+  var cac = elem.getAttribute('data-cac');
+  var acls = 'cac' + cac;
+  var asel = isbgon(acls);
+  console.log(date1()+' W4 across sel : '+asel);
+  var cdo = elem.getAttribute('data-cdo')
+  var dcls = 'cdo' + cdo;
+  var dsel = isbgon(dcls);
+  console.log(date1()+' W5 down sel : '+dsel);
+  resetCells();
+  resetClues();
+  if (asel == 'y') {
+    console.log(date1()+' V1 TAB across selected');
+    var cacn = '';
+    if (delta == 1) {
+      cacn = elem.getAttribute('data-nac');
+    } else if (delta == -1) {
+      cacn = elem.getAttribute('data-pac');
+    }
+    var aclsn = 'cac' + cacn;
+    var elemsn = document.getElementsByClassName(aclsn);
+    var nel = elemsn[0];
+    var rcid = nel.getAttribute('data-cid');
+    bgClueAcross(aclsn, rcid);
+    setFocus(rcid);
+    console.log(date1()+' V4 across clue : focus done on : '+rcid);
+  } else {
+    console.log(date1()+' VA TAB down selected');
+    var cdon = '';
+    if (delta == 1) {
+      cdon = elem.getAttribute('data-ndo');
+    } else if (delta == -1) {
+      cdon = elem.getAttribute('data-pdo');
+    }
+    var dclsn = 'cdo' + cdon;
+    var elemsn = document.getElementsByClassName(dclsn);
+    var nel = elemsn[0];
+    var rcid = nel.getAttribute('data-cid');
+    bgClueDown(dclsn, rcid);
+    setFocus(rcid);
+    console.log(date1()+' VD across clue : focus done on : '+rcid);
+  }
+  console.log(date1()+' <---- Exit tabUp');
+}
+
+
+// ###################################################################
+// Listeners
+//
+// ###################################################################
+
+function addParamListeners() {
+  /**
+  * Set listener function to 'paramCellSelected' for click on param cell
+  */
+
+  console.log('start add listeners ' +new Date().toUTCString());
+
+  var cwParamItemsElems = document.getElementsByClassName('cw-param-item');
+  for (var i=0; i<cwParamItemsElems.length; i++) {
+    cwParamItemsElems[i].addEventListener('click', paramCellSelected, true);
+  }
+  console.log('added listeners for click for ' +cwParamItemsElems.length+' param cells at '+new Date().toUTCString());
+
+  /**
+  * Set listener function to 'paramTextareaUpdated' for keyup on param text area
+  */
+  var textareaElems = ['cw-clues-param-across-text' ,'cw-clues-param-down-text'];
+  for (var i=0; i<textareaElems.length; i++) {
+    var textareaElem = document.getElementById(textareaElems[i]);
+    textareaElem.addEventListener('keyup', paramTextareaUpdated, true);
+  }
+  console.log('added listeners for keyup for ' +textareaElems.length+' textareas at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'paramCwNameChanged' for change on param cwnames
+*/
+function addCwNamesListener() {
+  var cwNamesElem = document.getElementById('cwnames');
+  cwNamesElem.addEventListener('change', paramCwNameChanged, true);
+  console.log('added listener for change for cwnames at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'paramCwActionChanged' for change on param cwactions
+*/
+function addCwActionsListener() {
+  var cwActionsElem = document.getElementById('cwactions');
+  cwActionsElem.addEventListener('change', paramCwActionChanged, true);
+  console.log('added listener for change for cwactions at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'paramCwSizeChanged' for change on param cwsizes
+*/
+function addCwSizesListener() {
+  var cwSizesElem = document.getElementById('cwsizes');
+  cwSizesElem.addEventListener('change', paramCwSizeChanged, true);
+  console.log('added listener for change for cwsizes at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'paramCwNewNameChanged' for change on param cwnewname
+*/
+function addCwNewNameListener() {
+  var cwNewNameElem = document.getElementById('cwnewname');
+  cwNewNameElem.addEventListener('change', paramCwNewNameChanged, true);
+  console.log('added listener for change for cwnewname at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'messageClosed' for 'Close'
+*/
+function addMessageCloseListener() {
+  var cwElem = document.getElementById('cw-message-close');
+  cwElem.addEventListener('click', messageClosed, true);
+  console.log('added listener for click for cw-message-close at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'showMessage' for 'More'
+*/
+function addMessageMoreListener() {
+  var cwElem = document.getElementById('cw-message-more');
+  cwElem.addEventListener('click', showMoreMessage, true);
+  console.log('added listener for click for cw-message-more at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'importConfirm' for keyup
+*/
+function addImportTextareaListener() {
+  var cwElem = document.getElementById('cw-import-text');
+  cwElem.addEventListener('keyup', importDialog, true);
+  console.log('added listener for keyup for cw-import-textarea at '+new Date().toUTCString());
+}
+
+/**
+* Set listener function to 'handleConfirm' for click
+*/
+function addMessageConfirmListener() {
+  var cwElem = document.getElementById('cw-message-confirm');
+  cwElem.addEventListener('click', handleConfirm, true);
+  console.log('added listener for click for cw-message-confirm at '+new Date().toUTCString());
+}
+
+function addListeners() {
+
+  /**
+  * Set listener function to 'cellSelected' for click on cell
+  * Set listener function to 'keyUp' for key up on cell
+  * Set listener function to 'keyDown' for key down on cell
+  */
+  var cwItemsElems = document.getElementsByClassName('cw-item');
+  for (var i=0; i<cwItemsElems.length; i++) {
+    cwItemsElems[i].addEventListener('click', cellSelected, true);
+    cwItemsElems[i].addEventListener('keyup', keyUp, true);
+    cwItemsElems[i].addEventListener('keydown', keyDown, true);
+  }
+  console.log('added listeners for click/keyup/keydown for ' +cwItemsElems.length+' cells at '+new Date().toUTCString());
+
+  /**
+  * Set listener function to 'clueSelected' for click on clue
+  */
+
+  var cwCluesListItemElems = document.getElementsByClassName('cw-clues-list-item');
+  for (var i=0; i<cwCluesListItemElems.length; i++) {
+    cwCluesListItemElems[i].addEventListener('click', clueSelected, true);
+  }
+  console.log('added listeners for click for ' +cwCluesListItemElems.length+' clues at '+new Date().toUTCString());
+}
+
+// ###################################################################
+// DOM for Params
+//
+// ###################################################################
+
+/*
+  Input Param cells
+  */
+function domParamBlanks(cwParamsBoard) {
+  for (var y=1; y<=paramsMaxDown(); y++) {
+    for (var x=1; x<=paramsMaxAcross(); x++) {
+      var id = 'na-'+toCellId(y, x);
+      var chi = {};
+      var clsNum = 'cw-number-item';
+      var clsParam = 'cw-param-item';
+      if (x==1 || x==paramsMaxAcross()) {
+        if (y ==1 || y == paramsMaxDown()) {
+          chi = setupDiv(id, clsNum, '');
+        } else {
+          chi = setupDiv(id, clsNum, ''+(y-1));
+        }
+      } else if (y==1 || y==paramsMaxDown()) {
+        if (x ==1 || x == paramsMaxAcross()) {
+          chi = setupDiv(id, clsNum, '');
+        } else {
+          chi = setupDiv(id, clsNum, ''+(x-1));
+        }
+      } else {
+        // id = 'pi-'+toCellId(y-1, x-1);
+        id = toCellId(y-1, x-1);
+        chi = setupInput(id, clsParam, null);
+      }
+      cwParamsBoard.appendChild(chi);
+    }
+  }
+}
+
+/*
+  Input Param cells using existing
+  */
+function domParamCellsFromExisting(cwParamsBoard) {
+
+  let blankMap = getBlankMap();
+
+  let valueMap = cellValuesToMap();
+
+  for (var y=1; y<=paramsMaxDown(); y++) {
+    for (var x=1; x<=paramsMaxAcross(); x++) {
+      var id = 'na-'+toCellId(y, x);
+      var chi = {};
+      var clsNum = 'cw-number-item';
+      var clsParam = 'cw-param-item';
+      if (x==1 || x==paramsMaxAcross()) {
+        if (y ==1 || y == paramsMaxDown()) {
+          chi = setupDiv(id, clsNum, '');
+        } else {
+          chi = setupDiv(id, clsNum, ''+(y-1));
+        }
+      } else if (y==1 || y==paramsMaxDown()) {
+        if (x ==1 || x == paramsMaxAcross()) {
+          chi = setupDiv(id, clsNum, '');
+        } else {
+          chi = setupDiv(id, clsNum, ''+(x-1));
+        }
+      } else {
+        var xVal = x-1;
+        var yVal = y-1;
+        // id = 'pi-'+toCellId(yVal, xVal);     
+        id = toCellId(yVal, xVal);   
+        var key = xVal+'.'+yVal;
+        var bc = blankMap.get(key);
+        if (bc == null) {
+          chi = setupInput(id, clsParam, valueMap);
+        } else {
+          chi = setupInputAsBlank(id, clsParam);
+        }
+        
+      }
+      cwParamsBoard.appendChild(chi);
+    }
+  }
+}
+
+/*
+  Setup Input Element for domParamCellsFromExisting (update) / domParamBlanks (setupNew)
+  */
+function setupInput(id, cls, valueMap) {
+  var chi = document.createElement('input'); 
+  chi.className = cls;
+  chi.id = id;
+  chi.name = id;      
+  chi.type = 'text';
+  chi.minLength = 1;
+  chi.maxLength = 1;
+
+  var valToUse = '';
+  if (valueMap != null) {
+      var existingVal = valueMap.get(id);
+      if (existingVal != null && existingVal.length > 0) {
+        valToUse = existingVal;
+      }           
+  }
+
+  chi.value = valToUse;
+  return chi;
+}
+
+/*
+  Setup Input Element for domParamBlanks as Blank
+  */
+function setupInputAsBlank(id, cls) {
+  var chi = document.createElement('input'); 
+  chi.className = cls;
+  chi.id = id;
+  chi.name = id;      
+  chi.type = 'text';
+  chi.minLength = 0;
+  chi.maxLength = 0;
+  chi.value = '';
+  chi.style.backgroundColor = 'black';
+  return chi;
+}
+
+/*
+  Setup Div Element for domParamBlanks
+  */
+function setupDiv(id, cls, val) {
+  var chi = document.createElement('div'); 
+  chi.className = cls;
+  chi.id = id;
+  chi.name = id;      
+  chi.innerHTML = val;
+  return chi;
+}
+
+/*
+  Link to OCR web site
+*/  
+
+function domParamCluesInfo(cwClues) {
+  var anch = document.createElement('a'); 
+  anch.classList.add('cw-clues-info');
+  anch.href = OCR_ONLINE_URL;
+  anch.innerHTML = 'Parse clues using OnlineOCR';
+  anch.target = '_blank'; 
+  cwClues.appendChild(anch); 
+}
+
+
+/*
+  Textarea Param across clues
+*/
+function domParamAcrossClues(cwClues) {
+  domParamAcrossCluesText(cwClues, '', true);
+}
+
+function domParamAcrossCluesFromExisting(cwClues) {
+  var modLines = formatClueLines(MAX_ACROSS, HORIZ_CLUES, 'across');
+  domParamAcrossCluesText(cwClues, modLines, false);
+}
+
+function formatClueLines(num, clues, dir) {
+  var sepRe = getClueRegExp();
+  const lines = getLines(num, clues, dir);
+  console.log('Setup '+lines.length+' lines');
+  if (lines == null || lines.length == 0) {
+    return clues;
+  }
+  var ret = '';
+  for (var i=0; i<lines.length; i++) {
+    var line = lines[i];  
+    line = line.replaceAll('\n', ' ');
+    ret = ret + line + '\n';
+  }
+  return ret;
+}
+
+function removeNewLines(clues) {
+  // input is array
+  clues = clues.replaceAll('\n', ' ');
+  return clues;
+}
+
+function domParamAcrossCluesText(cwClues, text, initial) {
+
+  var cla = document.createElement('div'); 
+  // cla.classList.add('cw-clues-list');
+  cla.classList.add('cw-clues-list-across');
+  cla.id = 'cw-clues-list-across';
+  cwClues.appendChild(cla);
+
+  var claTitle = document.createElement('div'); 
+  claTitle.classList.add('cw-clues-list-title');
+  claTitle.id = 'cw-clues-list-across-title';
+  claTitle.innerHTML = 'Across';
+  cla.appendChild(claTitle);
+
+  var textDiv = document.createElement('div'); 
+  cla.appendChild(textDiv);
+
+  var claText = document.createElement('textarea'); 
+  claText.className = getTextAreaClass();
+  claText.id = 'cw-clues-param-across-text';
+  if (initial) {
+    claText.placeholder = 'Enter Across Clues';
+  } else {
+    claText.innerHTML = text;
+  }
+  textDiv.appendChild(claText);
+
+}
+
+function getTextAreaClass() {
+
+  var suf = getNonNumberedSuffix();
+  return 'cw-clues-param-text-'+suf;
+}
+
+/*
+  Textarea Param down clues
+*/
+function domParamDownClues(cwClues) {
+  domParamDownCluesText(cwClues, '', true);
+}
+
+function domParamDownCluesFromExisting(cwClues) {
+  var modLines = formatClueLines(MAX_DOWN, VERT_CLUES, 'down');
+  domParamDownCluesText(cwClues, modLines, false);
+}
+
+function domParamDownCluesText(cwClues, text, initial) {
+
+  var cld = document.createElement('div'); 
+  // cld.classList.add('cw-clues-list');
+  cld.classList.add('cw-clues-list-down');
+  cld.id = 'cw-clues-list-down';
+  cwClues.appendChild(cld);
+
+  var claTitle = document.createElement('div'); 
+  claTitle.classList.add('cw-clues-list-title');
+  claTitle.id = 'cw-clues-list-down-title';
+  claTitle.innerHTML = 'Down';
+  cld.appendChild(claTitle);
+
+  var textDiv = document.createElement('div'); 
+  cld.appendChild(textDiv);
+
+  var cldText = document.createElement('textarea'); 
+  cldText.className = getTextAreaClass();
+  cldText.id = 'cw-clues-param-down-text';
+  if (initial) {
+    cldText.placeholder = 'Enter Down Clues';
+  } else {
+    cldText.innerHTML = text;
+  }
+  textDiv.appendChild(cldText);
+
+}
+
+// ###################################################################
+// DOM for Play 
+//
+// ###################################################################
+
+function domInputsNumbers(cwBoard) {
+
+  var valueMap = cellValuesToMap();
+
+  for (var y=1; y<=paramsMaxDown(); y++) {
+    for (var x=1; x<=paramsMaxAcross(); x++) {
+
+      var id = 'na-'+toCellId(y, x);
+      var chi = {};
+      var clsNum = 'cw-number-item';
+
+      if (x==1 || x==paramsMaxAcross()) {
+        if (y ==1 || y == paramsMaxDown()) {
+          // corner
+          chi = setupDiv(id, clsNum, '');
+        } else {
+          // number vertical left and right
+          chi = setupDiv(id, clsNum, ''+(y-1));
+        }
+      } else if (y==1 || y==paramsMaxDown()) {
+        if (x ==1 || x == paramsMaxAcross()) {
+          // corner
+          chi = setupDiv(id, clsNum, '');
+        } else {
+          // number horiz top and bottom
+          chi = setupDiv(id, clsNum, ''+(x-1));
+        }
+      } else {
+        var xVal = x-1;
+        var yVal = y-1;
+        // do cell for grid
+        var cellKey = xVal+'.'+yVal;
+        var cell = CELL_MAP.get(cellKey);
+        id = toCellId(yVal, xVal);
+
+        if (cell == null) {   
+          chi = domFillBlank(id);   
+        } else {
+          chi = domFillCell(cell, id, valueMap);    
+        }
+        
+      }
+      cwBoard.appendChild(chi)
+    }
+  }
+
+}
+
+/*
+  Input cells:
+  id : named XY where X is row, Y is column
+*/
+function domInputs(cwBoard) {
+
+  var valueMap = cellValuesToMap();
+
+  for (var y=1; y<=MAX_DOWN; y++) {
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      var cell = CELL_MAP.get(cellKey);
+      var id = toCellId(y, x);
+      var chi = {};
+      if (cell == null) {   
+        chi = domFillBlank(id);   
+      } else {
+        chi = domFillCell(cell, id, valueMap);    
+      }
+      cwBoard.appendChild(chi)
+    }
+  }
+}
+
+function domFillBlank(id) {
+  var spel = document.createElement('span'); 
+  spel.className = 'cw-blank';
+  spel.id = id;
+  return spel;
+}
+
+/*
+  Input cells:
+  data-cac : the number of clue across
+  data-nac : the number of next clue across
+  data-pac : the number of prev clue across
+  data-cdo : the number of clue down
+  data-ndo : the number of next clue down
+  data-pdo : the number of prev clue down
+  data-iup : the css id of next input cell up
+  data-ido : the css id of next input cell down
+  data-ile : the css id of next input cell left
+  data-iri : the css id of next input cell right
+*/
+function domFillCell(cell, id, valueMap) {
+  var upId = '';
+  var downId = '';
+  var leftId = '';
+  var rightId = '';
+  var downCell = getActiveCellDown(cell, 1);
+  if (downCell != null) {
+    downId = toId(downCell);
+  } 
+  var upCell = getActiveCellDown(cell, -1);
+  if (upCell != null) {
+    upId = toId(upCell);
+  } 
+  var rightCell = getActiveCellAcross(cell, 1);
+  if (rightCell != null) {
+    rightId = toId(rightCell);
+  } 
+  var leftCell = getActiveCellAcross(cell, -1);
+  if (leftCell != null) {
+    leftId = toId(leftCell);
+  } 
+
+  var acrossClue = cell.acrossClue;
+  var acrossLabel = '0';
+  var nextAcrossLabel = '0';
+  var prevAcrossLabel = '0';
+  if (acrossClue != null) {
+    acrossLabel = getLabel(acrossClue);
+    var nextAcrossClue = getNextAcrossClue(acrossClue);
+    if (nextAcrossClue != null) {
+      nextAcrossLabel = getLabel(nextAcrossClue);
+    }
+    var prevAcrossClue = getPrevAcrossClue(acrossClue);
+    if (prevAcrossClue != null) {
+      prevAcrossLabel = getLabel(prevAcrossClue);
+    }
+  }
+
+  var downClue = cell.downClue;
+  var downLabel = '0';
+  var nextDownLabel = '0';
+  var prevDownLabel = '0';
+  if (downClue != null) {
+    downLabel = getLabel(downClue);
+    var nextDownClue = getNextDownClue(downClue);
+    if (nextDownClue != null) {
+      nextDownLabel = getLabel(nextDownClue);
+    }
+    var prevDownClue = getPrevDownClue(downClue);
+    if (prevDownClue != null) {
+      prevDownLabel = getLabel(prevDownClue);
+    }
+  }
+
+  var inp = document.createElement('input'); 
+  inp.className = 'cw-item';
+  inp.id = id;
+  inp.name = id;
+  inp.dataset.cac = acrossLabel;
+  inp.dataset.nac = nextAcrossLabel;
+  inp.dataset.pac = prevAcrossLabel;
+  inp.dataset.cdo = downLabel;
+  inp.dataset.ndo = nextDownLabel;
+  inp.dataset.pdo = prevDownLabel;
+  inp.dataset.iup = upId;
+  inp.dataset.ido = downId;
+  inp.dataset.ile = leftId;
+  inp.dataset.iri = rightId;       
+  inp.type = 'text';
+  inp.minLength = 1;
+  inp.maxLength = 1;
+
+  var valToUse = '';
+  if (valueMap != null) {
+      var existingVal = valueMap.get(id);
+      if (existingVal != null && existingVal.length > 0) {
+        valToUse = existingVal;
+      }           
+  }
+  inp.value = valToUse;
+  return inp;
+}
+
+/*
+  Cell backgrounds:
+*/
+function domItemBgs(cwItemBgs) {
+  for (var y=1; y<=MAX_DOWN; y++) {
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      var cell = CELL_MAP.get(cellKey);
+      var id = toCellId(y, x);
+      if (cell != null) { 
+        var chi = domFillItemBgs(cell, 0);
+        cwItemBgs.appendChild(chi); 
+      }
+    }
+  }
+}
+
+function domItemBgsNumbers(cwItemBgs) {
+
+  for (var y=1; y<=MAX_DOWN; y++) {
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      var cellKey = x+'.'+y;
+      var cell = CELL_MAP.get(cellKey);
+      var id = toCellId(y, x);
+      if (cell != null) { 
+        var chi = domFillItemBgs(cell, 1);
+        cwItemBgs.appendChild(chi); 
+      }
+    }
+  }
+}
+
+/*
+  Cell backgrounds:
+  data-cac : the number of clue across
+  data-cdo : the number of clue down
+  data-cid : the css id of related input element
+*/
+function domFillItemBgs(cell, disp) {
+  var acrossClass = '';
+  var acrossClue = cell.acrossClue;
+  var acrossLabel = '0';
+  if (acrossClue != null) {
+    acrossClass = 'cac'+getLabel(acrossClue);
+    acrossLabel = getLabel(acrossClue); 
+  }
+  var downClass = '';
+  var downClue = cell.downClue;
+  var downLabel = '0';
+  if (downClue != null) {
+    downClass = 'cdo'+getLabel(downClue);
+    downLabel = getLabel(downClue);
+  }
+
+  var spel = document.createElement('span'); 
+  spel.classList.add('cw-itembg');
+
+  if (acrossClass.length > 0) {
+    spel.classList.add(acrossClass);
+  }
+  if (downClass.length > 0) {
+    spel.classList.add(downClass);
+  }
+
+  var y = cell.y;
+  spel.style.gridRow = y + disp;
+  var x = cell.x;
+  spel.style.gridColumn = x + disp;
+  var id = toCellId(y, x);
+
+  spel.id = 'itembg-'+id;
+
+  spel.dataset.cac = acrossLabel;
+  spel.dataset.cdo = downLabel;
+
+  spel.dataset.cid = id;
+  return spel;
+
+}
+
+function domLabels(cwLabels) {
+
+  var labelCells = getLabelCells();
+
+  for (var i=0; i<labelCells.length; i++) {
+    var cell = labelCells[i];
+    var label = cell.label;
+
+    var chi = domFillLabel(label, cell, 0);
+    cwLabels.appendChild(chi); 
+
+  }
+}
+
+function domLabelsNumbers(cwLabels) {
+
+  var labelCells = getLabelCells();
+
+  for (var i=0; i<labelCells.length; i++) {
+    var cell = labelCells[i];
+    var label = cell.label;
+
+    var chi = domFillLabel(label, cell, 1);
+    cwLabels.appendChild(chi); 
+
+  }
+}
+
+function domFillLabel(label, cell, disp) {
+  var spel = document.createElement('span'); 
+  spel.id = 'label-'+label;
+
+  spel.classList.add('cw-label');
+
+  spel.style.gridRow = cell.y + disp;
+  spel.style.gridColumn = cell.x + disp;
+  
+  var spel2 = document.createElement('span'); 
+  spel2.className = 'cw-label-text';
+  spel2.innerHTML = label;    
+  spel.appendChild(spel2); 
+
+  return spel;
+
+}
+
+function domAcrossClues(cwClues) {
+
+  var cla = document.createElement('div'); 
+  cla.classList.add('cw-clues-list');
+  cla.classList.add('cw-clues-list-across');
+  cla.id = 'cw-clues-list-across';
+  cwClues.appendChild(cla);
+
+  var claTitle = document.createElement('div'); 
+  claTitle.classList.add('cw-clues-list-title');
+  claTitle.id = 'cw-clues-list-across-title';
+  claTitle.innerHTML = 'Across';
+  cla.appendChild(claTitle);
+
+  var acrossClues = getAcrossClues();
+  for (var i=0; i<acrossClues.length; i++) {
+    var clue = acrossClues[i];
+    var label = getLabel(clue);
+
+    var claRow = document.createElement('div'); 
+    claRow.classList.add('cw-clues-row');
+    claRow.id = 'cw-clues-across-row-'+(i+1);
+    cla.appendChild(claRow);
+
+    var spel = document.createElement('span'); 
+
+    spel.classList.add('cw-clues-label');
+    spel.innerHTML = label+'. ';
+    claRow.appendChild(spel);
+
+    var spel2 = document.createElement('span'); 
+    spel2.classList.add('cw-clues-list-item');
+    spel2.classList.add('cw-clues-list-across');
+    spel2.id = 'cac'+label;
+    claRow.appendChild(spel2); 
+
+    var anch = document.createElement('a'); 
+    anch.classList.add('cw-clues-link');
+    anch.id = 'acac'+label;
+    anch.dataset.number = ''+label;
+    anch.dataset.frid = ''+getFrid(clue);
+    anch.href = '#welcome';
+    anch.innerHTML = clue.text+' ('+clue.answer.length+')';
+
+    spel2.appendChild(anch); 
+   
+  }
+}
+
+function domDownClues(cwClues) {
+
+  var cld = document.createElement('div'); 
+  cld.classList.add('cw-clues-list');
+  cld.classList.add('cw-clues-list-down');
+  cld.id = 'cw-clues-list-down';
+  cwClues.appendChild(cld);
+
+  var claTitle = document.createElement('div'); 
+  claTitle.classList.add('cw-clues-list-title');
+  claTitle.id = 'cw-clues-list-down-title';
+  claTitle.innerHTML = 'Down';
+  cld.appendChild(claTitle);
+
+  var downClues = getDownClues();
+  for (var i=0; i<downClues.length; i++) {
+    var clue = downClues[i];
+    var label = getLabel(clue);
+
+    var cldRow = document.createElement('div'); 
+    cldRow.classList.add('cw-clues-row');
+    cldRow.id = 'cw-clues-down-row-'+(i+1);
+    cld.appendChild(cldRow);
+
+    var spel = document.createElement('span'); 
+
+    spel.classList.add('cw-clues-label');
+    spel.innerHTML = label+'. ';
+    cldRow.appendChild(spel); 
+
+    var spel2 = document.createElement('span'); 
+    spel2.classList.add('cw-clues-list-item');
+    spel2.classList.add('cw-clues-list-down');
+    spel2.id = 'cdo'+label;
+    cldRow.appendChild(spel2); 
+
+    var anch = document.createElement('a'); 
+    anch.classList.add('cw-clues-link');
+    anch.id = 'acdo'+label;
+    anch.dataset.number = ''+label;
+    anch.dataset.frid = ''+getFrid(clue);
+    anch.href = '#welcome';
+    anch.innerHTML = clue.text+' ('+clue.answer.length+')';
+
+    spel2.appendChild(anch); 
+  
+  }
+}
+
+// ###################################################################
+// Start 
+//
+// ###################################################################
+
+window.onload = getInitialParams;
+
+function getInitialParams() {
+
+  storeGetNames(CTX_MAKE_ACTIONS);
+  
+}
+
+function resultGetNames(names, ok, context) {
+
+  if (!ok) {
+    addError('Failed to get crosswords. ');
+    showMessages();
+    return;
+
+  } else {
+    EXISTING_NAMES = names;
+
+    console.log('Set '+EXISTING_NAMES.length+' existing crossword names');
+
+    if (context == CTX_MAKE_ACTIONS) {
+      resultMakeActions();
+    } else if (context == CTX_MAKE_NAMES) {
+      resultMakeNames();
+    }
+  }
+  
+}
+
+function makeManageCont() {
+
+  var cwManageCont = document.getElementById('cw-manage-cont');
+  removeElement(cwManageCont);
+
+  cwManageCont = document.createElement("span");
+  cwManageCont.id = 'cw-manage-cont';
+
+  var cwInitCont = document.getElementById('cw-init-cont');
+  cwInitCont.appendChild(cwManageCont);
+
+  return cwManageCont;
+}
+
+function resultMakeActions() {
+
+  var acts = [];
+  if (EXISTING_NAMES.length > 0) {
+    acts = ['--Choose action--',ACTION_CREATE, ACTION_PLAY, ACTION_UPDATE, ACTION_EXPORT, ACTION_IMPORT, ACTION_DELETE, ACTION_CLEAR];
+  } else {
+    acts = ['--Choose action--',ACTION_CREATE, ACTION_IMPORT, ACTION_CLEAR];
+  }
+
+  var cwInitCont = document.getElementById('cw-init-cont');
+  removeAllChildNodes(cwInitCont);
+
+  var cwAction = document.createElement("select"); 
+  cwAction.setAttribute("name", "cwactions"); 
+  cwAction.setAttribute("id", "cwactions"); 
+  cwAction.className = 'cw-init-select';
+  cwInitCont.appendChild(cwAction); 
+  for (var i=0; i<acts.length; i++) {
+    var act = acts[i];
+    var actEl = document.createElement("option"); 
+    actEl.value = act;
+    actEl.text = act;    
+    cwAction.appendChild(actEl); 
+  }
+  addCwActionsListener();
+}
+
+function makeNames() {
+  
+  storeGetNames(CTX_MAKE_NAMES);
+
+}
+
+function resultMakeNames() {
+
+  var cwManageCont = makeManageCont();
+
+  var cwSelect = document.createElement("select"); 
+  cwSelect.setAttribute("name", "cwnames"); 
+  cwSelect.setAttribute("id", "cwnames"); 
+  cwSelect.className = 'cw-init-select';
+  cwManageCont.appendChild(cwSelect); 
+
+  var optInfo = document.createElement("option"); 
+  optInfo.value = '--Choose crossword--';
+  optInfo.text = '--Choose crossword--';    
+  cwSelect.appendChild(optInfo); 
+
+  for (var i=0; i<EXISTING_NAMES.length; i++) {
+    var exName = EXISTING_NAMES[i];
+    var optEl = document.createElement("option"); 
+    optEl.value = exName;
+    optEl.text = exName;    
+    cwSelect.appendChild(optEl); 
+  }
+  addCwNamesListener();
+}
+
+function makeNewName() {
+  var cwManageCont = makeManageCont();
+
+  var cwNewName = document.createElement("input"); 
+  cwNewName.setAttribute("type", "text"); 
+  cwNewName.setAttribute("name", "cwnewname"); 
+  cwNewName.setAttribute("id", "cwnewname"); 
+  cwNewName.className = 'cw-init-input';
+  cwNewName.setAttribute("placeholder", "--Enter Name--");  
+  cwManageCont.appendChild(cwNewName); 
+
+  addCwNewNameListener();
+
+  var cwSize = document.createElement("select"); 
+  cwSize.setAttribute("name", "cwsizes"); 
+  cwSize.setAttribute("id", "cwsizes"); 
+  cwSize.className = 'cw-init-select';
+  cwManageCont.appendChild(cwSize); 
+
+  // var sizes = ['--Choose size--','20', '7'];
+  var sizes = makeSizes();
+  for (var i=0; i<sizes.length; i++) {
+    var size = sizes[i];
+    var sizeEl = document.createElement("option"); 
+    sizeEl.value = size;
+    sizeEl.text = size;    
+    cwSize.appendChild(sizeEl); 
+  }
+
+  addCwSizesListener();
+}
+
+function makeSizes() {
+  var ret = [];
+  ret.push('--Choose size--')
+  for (var i=0; i<ACROSS_VALUES.length; i++) {
+    ret.push(''+ACROSS_VALUES[i]);
+  }
+  return ret;
+}
+
+function paramCwActionChanged() {
+  var cwAction = '';
+  var el = document.getElementById('cwactions');
+  if (el != null) {
+    cwAction = el.value;   
+  }
+  console.log('cwAction = '+cwAction);
+  CWORD_ACTION = cwAction;
+
+  clearForNewAction();
+
+  if (CWORD_ACTION == ACTION_CREATE) {
+    makeNewName();
+  } else if (CWORD_ACTION == ACTION_CLEAR) {
+    clearAll();
+  } else if (CWORD_ACTION == ACTION_EXPORT) {
+    makeNames();
+  } else if (CWORD_ACTION == ACTION_IMPORT) {
+    clearCwNames();
+    prepareImport();
+  } else if (CWORD_ACTION == ACTION_PLAY) {
+    makeNames();
+  } else {
+    makeNames();
+  }
+}
+
+function clearCwNames() {
+  var cwnames = document.getElementById('cwnames');
+  removeElement(cwnames);
+}
+
+function doExport() {
+
+  clearMessages();
+  showInfoMessage('Copy this text and save for future import');
+
+  var cwObj = makeCwObject();
+  var cwAsJson = JSON.stringify(cwObj);
+
+  var cwParamsCont = document.getElementById('cw-params-cont');
+  removeAllChildNodes(cwParamsCont);
+
+  var cwExport = document.createElement('textarea'); 
+  cwExport.id = 'cw-export-text';
+  cwExport.className = 'cw-export-import-text';
+  cwExport.innerHTML = cwAsJson;
+  cwParamsCont.appendChild(cwExport);
+
+}
+
+function prepareImport() {
+
+  showInfoMessage('Enter JSON text below');
+
+  var cwParamsCont = document.getElementById('cw-params-cont');
+
+  var cwExport = document.createElement('textarea'); 
+  cwExport.id = 'cw-import-text';
+  cwExport.className = 'cw-export-import-text';
+  cwExport.innerHTML = '';
+  cwParamsCont.appendChild(cwExport);
+
+  addImportTextareaListener();
+
+}
+
+function importDialog() {
+  showConfirmMessage('Import using this JSON text ?');
+}
+
+function handleConfirm() {
+  if (CWORD_ACTION == ACTION_IMPORT) {
+    clearMessages();
+    doImport();
+  } else if (CWORD_ACTION == ACTION_UPDATE) {
+    setupFromExisting();
+    validate();
+    updateExisting();
+  } else if (CWORD_ACTION == ACTION_CREATE) {
+    validate();
+    updateExisting();
+    getInitialParams();
+  }
+}
+
+function parseObjectFromJSON(jsonStr) {
+  var cwObj = null;
+  try {
+    cwObj = JSON.parse(jsonStr);
+  } catch(e) {
+    addErrors(['Invalid json.', 'Unable to parse JSON from ['+jsonStr+'].\n'+e.message]);
+  }
+  return cwObj;
+}
+
+function doImport() {
+  var cwImportTextarea = document.getElementById('cw-import-text');
+  var jsonStr = cwImportTextarea.value;
+  if (jsonStr == null || jsonStr.length == 0) {
+    addErrors(['Invalid json', 'Empty JSON string']);
+  }
+
+  var cwObj = parseObjectFromJSON(jsonStr);
+
+  var theName = '';
+  var theMaxAcross = 0;
+  var theMaxDown = 0;
+  var theBlanks = '';
+  var theHorizClues = '';
+  var theVertClues = '';
+  var theCellValues = {};
+
+  // check its valid
+  if (cwObj == null) {
+    addErrors(['Invalid json', 'Not valid JSON string for a crossword']);
+  } else {
+    if (!cwObj.hasOwnProperty('name')) {
+      addErrors(['Invalid json', 'Missing name']);
+    } else {
+      if (!isValidImportCrosswordName(cwObj.name)) {
+        addErrors(['Invalid json', 'Invalid name ['+cwObj.name+']']);
+      } else {
+        theName = cwObj.name;
+      }
+    }
+    if (!cwObj.hasOwnProperty('maxAcross')) {
+      addErrors(['Invalid json', 'Missing maxAcross']);
+    } else {
+      var ma = 1 * cwObj.maxAcross;
+      if (Number.isNaN(ma)) {
+        addErrors(['Invalid json', 'maxAcross is not a number']);
+      } else {
+        if (!isAllowedAcross(ma)) { // } != 7 && ma != 20) {
+          addErrors(['Invalid json', 'maxAcross is not in '+ACROSS_VALUES]);
+        } else {
+          theMaxAcross = ma;
+        }
+      }
+    }
+    if (!cwObj.hasOwnProperty('maxDown')) {
+      addErrors(['Invalid json', 'Missing maxDown']);
+    } else {
+      var md = 1 * cwObj.maxDown;
+      if (Number.isNaN(md)) {
+        addErrors(['Invalid json', 'maxDown is not a number']);
+      } else {
+        if (!isAllowedAcross(md)) {   // md != 7 && md != 20) {
+          addErrors(['Invalid json', 'maxDown is not in '+DOWN_VALUES]);
+        } else {
+          theMaxDown = md;
+        }
+      }
+    }
+    if (!cwObj.hasOwnProperty('blanks')) {
+      addErrors(['Invalid json', 'Missing blanks']);
+    } else {
+      theBlanks = cwObj.blanks;
+    }
+    if (!cwObj.hasOwnProperty('horizClues')) {
+      addErrors(['Invalid json', 'Missing horizClues']);
+    } else {
+      theHorizClues = cwObj.horizClues;
+    }
+    if (!cwObj.hasOwnProperty('vertClues')) {
+      addErrors(['Invalid json', 'Missing vertClues']);
+    } else {
+      theVertClues = cwObj.vertClues;
+    }
+
+    if (!cwObj.hasOwnProperty('cellValues')) {
+      addErrors(['Invalid json', 'Missing cellValues']);
+    } else {
+      theCellValues = cwObj.cellValues;
+    }
+  }
+
+  if (MESSAGES_ERROR.length > 0) {
+    addErrorAtStart('Cannot import.');
+    showMessages();
+    return; 
+  }
+
+  var cwObj2 = {};
+  cwObj2.name = theName;
+  cwObj2.maxAcross = theMaxAcross;
+  cwObj2.maxDown = theMaxDown;
+  cwObj2.blanks = theBlanks;
+  cwObj2.horizClues = theHorizClues;
+  cwObj2.vertClues = theVertClues;
+  cwObj2.cellValues = theCellValues;
+
+  CWORD_NAME = theName;
+  MAX_ACROSS = theMaxAcross;
+  MAX_DOWN = theMaxDown;
+  BLANKS = theBlanks;
+  HORIZ_CLUES = theHorizClues;
+  VERT_CLUES = theVertClues;
+  CELL_VALUES = theCellValues;
+
+  saveCwordObject(cwObj2, CTX_IMPORT);
+}
+
+function resultSaveImport(ok) {
+  if (!ok) {
+    addError('Failed to import. ');
+    showMessages();
+    return;
+  } else {
+
+    showInfoMessage('Imported '+CWORD_NAME+' successfully');
+
+    getInitialParams();
+  }
+
+}
+
+function paramTextareaUpdated() {
+  handleParams();
+}
+
+function clearForNewAction() {
+  var cwParamsCont = document.getElementById('cw-params-cont');
+  removeAllChildNodes(cwParamsCont);
+  var cwCont = document.getElementById('cw-cont');
+  removeAllChildNodes(cwCont);
+  var msgCont = document.getElementById('cw-message-cont');
+  removeAllChildNodes(msgCont);
+
+  clearMessages();
+}
+
+function clearAll() {
+  var cwInitCont = document.getElementById('cw-init-cont');
+  removeAllChildNodes(cwInitCont);
+  var cwParamsCont = document.getElementById('cw-params-cont');
+  removeAllChildNodes(cwParamsCont);
+  var cwCont = document.getElementById('cw-cont');
+  removeAllChildNodes(cwCont);
+
+  clearMessages();
+
+  getInitialParams();
+}
+
+function clearAfterClose() {
+  var cwInitCont = document.getElementById('cw-init-cont');
+  removeAllChildNodes(cwInitCont);
+
+  getInitialParams();
+}
+
+function paramCwNameChanged() {
+
+  if (CWORD_ACTION == ACTION_PLAY) {
+    setupFromExisting();
+    play();
+  } else if (CWORD_ACTION == ACTION_UPDATE) {
+    setupFromExisting();
+    updateExisting();
+  } else if (CWORD_ACTION == ACTION_DELETE) {
+    setupFromExisting();
+    deleteExisting();
+  } else if (CWORD_ACTION == ACTION_EXPORT) {
+    setupFromExisting();
+    doExport();
+  } else {
+    console.log('Invalid CWORD_ACTION : ['+CWORD_ACTION+']');
+  }
+  
+}
+
+function paramCwNewNameChanged() {
+  // only do something if size has been selected
+  var cwSize = '';
+  var el = document.getElementById('cwsizes');
+  if (el != null) {
+    cwSize = el.value;   
+  }
+  console.log('cwSize = ['+cwSize+']');
+
+}
+
+function remakeCwSizes() {
+  // set the cwsize to not selected
+  var cwSize = document.getElementById('cwsizes');
+  if (cwSize != null) {
+    removeAllChildNodes(cwSize);
+
+    // var sizes = ['--Choose size--','20', '7'];
+    var sizes = makeSizes();
+    for (var i=0; i<sizes.length; i++) {
+      var size = sizes[i];
+      var sizeEl = document.createElement("option"); 
+      sizeEl.value = size;
+      sizeEl.text = size;    
+      cwSize.appendChild(sizeEl); 
+    }
+
+    addCwSizesListener();
+  }
+}
+
+function paramCwSizeChanged() {
+  var cwSize = '';
+  var el = document.getElementById('cwsizes');
+  if (el != null) {
+    cwSize = el.value;   
+  }
+  console.log('cwSize = ['+cwSize+']');
+
+  var ok = setupNew();
+  if (ok) {
+    getInitialParams();
+  }
+
+}
+
+function setupFromExisting() {
+
+  var cwNamesElem = document.getElementById('cwnames');
+  if (cwNamesElem != null) {
+    var name = cwNamesElem.value;
+    CWORD_NAME = name;
+    console.log('name = ['+name+']');
+    storeGet(name);
+  }
+}
+
+function resultGet(cwObj, ok, name) {
+
+  if (!ok) {
+    addError('Failed to get crossword. ');
+    showMessages();
+    return;
+  } else {
+
+    MAX_ACROSS = 1 * cwObj.maxAcross;
+    console.log('MAX_ACROSS : ['+MAX_ACROSS+']');
+    MAX_DOWN = 1 * cwObj.maxDown;
+    console.log('MAX_DOWN : ['+MAX_DOWN+']');
+    BLANKS = cwObj.blanks;
+    console.log('BLANKS : ['+BLANKS+']');
+    HORIZ_CLUES = cwObj.horizClues;
+    HORIZ_CLUES = removeNewLines(HORIZ_CLUES);
+
+    console.log('HORIZ_CLUES : ['+HORIZ_CLUES+']');
+    VERT_CLUES = cwObj.vertClues;
+    VERT_CLUES = removeNewLines(VERT_CLUES);
+
+    console.log('VERT_CLUES : ['+VERT_CLUES+']'); 
+
+    CELL_VALUES = cwObj.cellValues;
+    console.log('CELL_VALUES : ['+CELL_VALUES+']'); 
+
+  }
+
+}
+
+function getNumberedSuffix() {
+  var n = MAX_ACROSS;
+  n += 2;
+  return n+'by'+n;
+}
+
+function getNonNumberedSuffix() {
+  var n = MAX_ACROSS;
+  return n+'by'+n;
+}
+
+function updateExisting() {
+
+  var cwCont = document.getElementById('cw-cont');
+  removeAllChildNodes(cwCont);
+
+  var cwParamsCont = document.getElementById('cw-params-cont');
+  removeAllChildNodes(cwParamsCont);
+
+  var cwParamsBoard = document.createElement('div'); 
+
+  var suf = getNumberedSuffix();
+  var cwParamsBoardClassName = 'cw-board-'+suf;
+  var cwParamsCluesClassName = 'cw-clues-'+suf;
+
+  cwParamsBoard.className = cwParamsBoardClassName;
+  cwParamsBoard.id = 'cw-params-board';
+
+  cwParamsCont.appendChild(cwParamsBoard);
+
+  // Enter the blanks - fill with existing
+  initCellMap();
+  domParamCellsFromExisting(cwParamsBoard);
+ 
+  var cwParamClues = document.createElement('div'); 
+
+  cwParamClues.classList.add(cwParamsCluesClassName);
+
+  cwParamClues.id = 'cw-param-clues';
+
+  cwParamsBoard.appendChild(cwParamClues); 
+
+  // Enter the across clues - fill with existing
+  domParamAcrossCluesFromExisting(cwParamClues);
+
+  // Enter the down clues - fill with existing
+  domParamDownCluesFromExisting(cwParamClues);
+
+  addParamListeners();
+  
+}
+
+function deleteExisting() {
+  var name = CWORD_NAME;
+  storeDelete(name);
+
+}
+
+function resultDelete(deletedOK, name) {
+  if (deletedOK) {
+    showInfoMessage('Deleted '+name);
+  } else {
+    showErrorMessage('Failed to Delete '+name);
+  }
+
+  getInitialParams();
+}
+
+function isValidImportCrosswordName(name) {
+  return isValidCrosswordNameInternal(name);
+}
+
+function isValidCrosswordName() {
+  return isValidCrosswordNameInternal(CWORD_NAME);
+}
+
+function isValidCrosswordNameInternal(name) {
+  if (name == null || name.length <MIN_CWORD_LEN || name.length >MAX_CWORD_LEN || name.startsWith('--')) {
+    return false;
+  }
+  return true;
+}
+
+function isDuplicateImportNewName(name) {
+  return isDuplicateNewNameInternal(name);
+}
+
+function isDuplicateNewName() {
+  return isDuplicateNewNameInternal(CWORD_NAME);
+}
+
+function isDuplicateNewNameInternal(name) {
+  if (EXISTING_NAMES.indexOf(name) >= 0) {
+    return true;
+  }
+  return false;
+}
+
+function setupNew() {
+
+  var cwNewNameElem = document.getElementById('cwnewname');
+  if (cwNewNameElem != null) {
+    CWORD_NAME = cwNewNameElem.value;   
+  }
+  console.log('CWORD_NAME = ['+CWORD_NAME+']');
+
+  if (!isValidCrosswordName()) {
+    showErrorMessage('Failed to create '+CWORD_NAME+ ' since name length is '+CWORD_NAME.length+' : must be between 3 and 80');
+    return false;
+  }
+
+  if (isDuplicateNewName()) {
+    showErrorMessage('Failed to create since '+CWORD_NAME+' already exists');    
+    return false;
+  }
+
+  var cwObj = EXAMPLE_MAP.get(CWORD_NAME);
+  if (cwObj != null) {
+    setViaExample(cwObj);
+    return true;
+  }
+
+  var cwSizeElem = document.getElementById('cwsizes');
+  if (cwSizeElem != null) {
+    MAX_ACROSS = 1 * cwSizeElem.value;
+    MAX_DOWN = 1 * cwSizeElem.value;
+  }
+  console.log('MAX_ACROSS : ['+MAX_ACROSS+']');
+  console.log('MAX_DOWN : ['+MAX_DOWN+']');
+
+  BLANKS = '';
+  HORIZ_CLUES = '';
+  VERT_CLUES = '';
+
+  var cwCont = document.getElementById('cw-cont');
+  removeAllChildNodes(cwCont);
+
+  var cwParamsCont = document.getElementById('cw-params-cont');
+  removeAllChildNodes(cwParamsCont);
+
+  var cwParamsBoard = document.createElement('div'); 
+
+  var suf = getNumberedSuffix();
+
+  var cwParamsBoardClassName = 'cw-board-'+suf;
+  var cwParamsCluesClassName = 'cw-clues-'+suf;
+
+  cwParamsBoard.className = cwParamsBoardClassName;
+  cwParamsBoard.id = 'cw-params-board';
+
+  cwParamsCont.appendChild(cwParamsBoard);
+
+  // Enter the blanks
+  domParamBlanks(cwParamsBoard);
+ 
+  var cwParamClues = document.createElement('div'); 
+  cwParamClues.classList.add(cwParamsCluesClassName);
+  cwParamClues.id = 'cw-param-clues';
+  cwParamsBoard.appendChild(cwParamClues); 
+
+  // make the info anchor for ocr
+  domParamCluesInfo(cwParamClues);
+
+  // Enter the across clues
+  domParamAcrossClues(cwParamClues);
+
+  // Enter the down clues
+  domParamDownClues(cwParamClues);
+
+  saveInSetupNew();
+
+  addParamListeners();
+  return true;
+}
+
+function handleParams() {
+
+  // update case
+
+  // translate blanks into input format
+  var lines = '';
+  for (var y=1; y<=MAX_DOWN; y++) {
+    var line = '';
+    for (var x=1; x<=MAX_ACROSS; x++) {
+      // var id = 'pi-'+toCellId(y, x);
+      var id = toCellId(y, x);
+      var elem = document.getElementById(id);
+      var ec = elem.style.backgroundColor;
+      
+      if (ec == 'black') {
+        if (line == '') {
+          line = ''+x;
+        } else {
+          line += ','+x;
+        }
+      }
+    }
+    if (line.length > 0) {
+      line = y+' '+line;
+      lines += line+';';
+    }
+  }
+
+  lines = lines.trim();
+  BLANKS = lines;
+  console.log('BLANKS : ['+BLANKS+']');
+
+  // set horiz and vert clues
+  var acrossTextElem = document.getElementById('cw-clues-param-across-text');
+  
+  var atext = convertCluesRomanDash(acrossTextElem.value);
+  atext = convertCluesDash(atext);
+
+  HORIZ_CLUES = atext;
+  HORIZ_CLUES = HORIZ_CLUES.trim();
+  console.log('HORIZ_CLUES : ['+HORIZ_CLUES+']');
+
+  var downTextElem = document.getElementById('cw-clues-param-down-text');
+
+  var dtext = convertCluesRomanDash(downTextElem.value);
+  dtext = convertCluesDash(dtext);
+
+  VERT_CLUES = dtext;
+  VERT_CLUES = VERT_CLUES.trim();
+  console.log('VERT_CLUES : ['+VERT_CLUES+']');
+
+  saveInUpdate();
+
+}
+
+function convertCluesRomanDash(text) {
+  // handle style seen in 15by15 grids:
+  // I. aaa. - II. ccc. (across)
+  var cmap = new Map();
+  cmap.set('I. ', '1. ');
+  cmap.set('- II. ', '2. ');
+  cmap.set('- III. ', '3. ');
+  cmap.set('- IV. ', '4. ');
+  cmap.set('- V. ', '5. ');
+  cmap.set('- VI. ', '6. ');
+  cmap.set('- VII. ', '7. ');
+  cmap.set('- VIII. ', '8. ');
+  cmap.set('- IX. ', '9. ');
+  cmap.set('- X. ', '10. ');
+  cmap.set('- XI. ', '11. ');
+  cmap.set('- XII. ', '12. ');
+  cmap.set('- XIII. ', '13. ');
+  cmap.set('- XIV. ', '14. ');
+  cmap.set('- XV. ', '15. ');
+  cmap.set('- XVI. ', '16. ');
+  cmap.set('- XVII. ', '17. ');
+  cmap.set('- XVIII. ', '18. ');
+  cmap.set('- XIX. ', '19. ');
+  cmap.set('- XX. ', '20. ');
+  for (const [key, value] of cmap.entries()) {
+    text = text.replace(key, value);
+  }
+  return text;
+}
+
+function convertCluesDash(text) {
+  // handle styles seen in 15by15 grids:
+  // 1. aaa. - 2. bbb.  (down)
+  var cmap = new Map();
+  // cmap.set('1. ', '1. ');  // not needed
+  cmap.set('- 2. ', '2. ');
+  cmap.set('- 3. ', '3. ');
+  cmap.set('- 4. ', '4. ');
+  cmap.set('- 5. ', '5. ');
+  cmap.set('- 6. ', '6. ');
+  cmap.set('- 7. ', '7. ');
+  cmap.set('- 8. ', '8. ');
+  cmap.set('- 9. ', '9. ');
+  cmap.set('- 10. ', '10. ');
+  cmap.set('- 11. ', '11. ');
+  cmap.set('- 12. ', '12. ');
+  cmap.set('- 13. ', '13. ');
+  cmap.set('- 14. ', '14. ');
+  cmap.set('- 15. ', '15. ');
+  cmap.set('- 16. ', '16. ');
+  cmap.set('- 17. ', '17. ');
+  cmap.set('- 18. ', '18. ');
+  cmap.set('- 19. ', '19. ');
+  cmap.set('- 20. ', '20. ');
+  for (const [key, value] of cmap.entries()) {
+    text = text.replace(key, value);
+  }
+  return text;
+}
+
+function play() {
+
+  // build the grid
+  buildGrid();
+
+  // print grid 
+  printGrid();
+
+  var cwParamsCont = document.getElementById('cw-params-cont');
+  removeAllChildNodes(cwParamsCont);
+
+  // clear the crossword DOM
+  clearCrosswordDOM();
+
+  // build the crossword DOM 
+  if (NUMBERED_GRID) {
+    buildCrosswordDOMNumbers(); 
+  } else {
+    buildCrosswordDOM();
+  }
+
+  if (numMessages() > 0) {
+    // display error 
+    
+    addErrorAtStart('Cannot play.');
+
+    showMessages();
+    return;
+  }
+
+  // add the listeners
+  addListeners();
+
+}
+
+function validate() {
+
+  // build the grid
+  buildGrid();
+
+  // print grid 
+  printGrid();
+
+  if (numMessages() > 0) {
+    // display error 
+    
+    addErrorAtStart('Failed Validation.');
+
+    showMessages();
+
+  } else {
+    showInfoMessage('Passed Validation');
+  }
+
+}
+
+function setViaExample(cwObj) {
+
+  CWORD_NAME = cwObj.name;
+  MAX_ACROSS = cwObj.maxAcross;
+  MAX_DOWN = cwObj.maxDown;
+  BLANKS = cwObj.blanks;
+  HORIZ_CLUES = cwObj.horizClues;
+  VERT_CLUES = cwObj.vertClues;
+
+  saveExample();
+}
+
+function makeCwObject() {
+  var cwObj = {};
+  cwObj.name = CWORD_NAME;
+  cwObj.maxAcross = MAX_ACROSS;
+  cwObj.maxDown = MAX_DOWN;
+  cwObj.blanks = BLANKS;
+  cwObj.horizClues = HORIZ_CLUES;
+  cwObj.vertClues = VERT_CLUES;
+  cwObj.cellValues = CELL_VALUES;
+  return cwObj;
+}
+
+function saveExample() {
+
+  CELL_VALUES = cellValuesToObj();
+
+  // save the crossword
+  var cwObj = makeCwObject();
+
+  saveCwordObject(cwObj, CTX_NEW_EXAMPLE);
+}
+
+function resultSaveNewExample(ok) {
+
+  if (!ok) {
+    addError('Failed to save. ');
+
+    showMessages();
+  } else {
+
+    addInfo('Created example : '+CWORD_NAME);
+    MESSAGES_INFO.reverse();
+    showMessages();
+
+    getInitialParams();
+
+  }
+
+}
+
+function saveInUpdate() {
+  CELL_VALUES = cellValuesToObj();
+  // save the crossword
+  var cwObj = makeCwObject();
+
+  saveCwordObject(cwObj, CTX_UPDATE);
+
+}
+
+function resultSaveUpdate(ok) {
+
+  if (!ok) {
+    addError('Failed to update. ');
+    showMessages();
+  } else {
+    showConfirmMessage('Updated at '+date1()+", Validate ?");
+  }
+}
+
+function saveInPlay() {
+  CELL_VALUES = cellValuesToObj();
+  // save the crossword
+  var cwObj = makeCwObject();
+
+  saveCwordObject(cwObj, CTX_PLAY);
+
+}
+
+function resultSavePlay(ok) {
+
+  if (!ok) {
+    addError('Failed to autosave. ');
+    // MESSAGES_WARN.reverse();
+    showMessages();
+  } else {
+
+    addInfo('Autosaved at '+date1());
+    MESSAGES_INFO.reverse();
+    showMessages();
+
+  }
+}
+
+function saveInSetupNew() {
+  CELL_VALUES = cellValuesToObj();
+  // save the crossword
+  var cwObj = makeCwObject();
+
+  saveCwordObject(cwObj, CTX_NEW);
+}
+
+function resultSaveNew(ok) {
+
+  if (!ok) {
+    addError('Failed to create. ');
+    // MESSAGES_WARN.reverse();
+    showMessages();
+  } else {
+
+    addInfo('Created : '+CWORD_NAME+', now set blanks and clues');
+    MESSAGES_INFO.reverse();
+    showMessages();
+
+  }
+}
+
+function saveCwordObject(cwObj, context) {
+
+  clearMessages();
+
+  var name = cwObj.name;
+  var maxAcross = cwObj.maxAcross;
+  var maxDown = cwObj.maxDown;
+  var blanks = cwObj.blanks;
+  var horizClues = cwObj.horizClues;
+  var vertClues = cwObj.vertClues;
+  var cellValues = cwObj.cellValues;
+
+  if (!isValidCrosswordNameInternal(name)) {
+    console.log('Invalid name : ['+name+'], not saving');
+    addErrors(['Failed to save', 'Invalid name : ['+name+']']);
+  }
+
+  if (!isAllowedAcross(maxAcross)) {
+    console.log('maxAcross is not in '+ACROSS_VALUES+', not saving');
+    addErrors(['Failed to save', 'Invalid maxAcross, not in '+ACROSS_VALUES]);
+  }
+
+  if (!isAllowedDown(maxDown)) {
+    console.log('maxDown is not in '+DOWN_VALUES+', not saving');
+    addErrors(['Failed to save', 'Invalid maxDown, not in '+DOWN_VALUES]);
+  }
+
+  if (numMessages() > 0) {
+    return false;
+  }
+
+  horizClues = removeNewLines(horizClues);
+  vertClues = removeNewLines(vertClues);
+
+  storeSave(cwObj, context);
+
+}
+
+function resultSave(ok, context) {
+  if (context == CTX_IMPORT) {
+    resultSaveImport(ok);
+  } else if (context == CTX_PLAY) {
+    resultSavePlay(ok);
+  } else if (context == CTX_NEW) {
+    resultSaveNew(ok);
+  } else if (context == CTX_NEW_EXAMPLE) {
+    resultSaveNewExample(ok);
+  } else if (context == CTX_UPDATE) {
+    resultSaveUpdate(ok);
+  }
+}
+
+function showInfoMessage(msg) {
+  addInfo(msg);
+  showMessages();
+}
+
+function showErrorMessage(msg) {
+  addError(msg);
+  showMessages();
+}
+
+function showWarnMessage(msg) {
+  addWarn(msg);
+  showMessages();
+}
+
+function numMessages() {
+  var x = MESSAGES_INFO.length;
+  x += MESSAGES_WARN.length;
+  x += MESSAGES_ERROR.length;
+  return x;
+}
+
+function firstMessage() {
+  if (MESSAGES_ERROR.length > 0) {
+    if (MESSAGES_ERROR.length > 1) {
+      return MESSAGES_ERROR[0] + ' '+ MESSAGES_ERROR[1];
+    } else {
+      return MESSAGES_ERROR[0];
+    }
+  } else if (MESSAGES_WARN.length > 0) {
+    return MESSAGES_WARN[0];
+  } else if (MESSAGES_INFO.length > 0) {
+    return MESSAGES_INFO[0];
+  }
+  return '';
+}
+
+function moreMessage(arr) {
+  if (arr.length >= 3) {
+    return arr[2];
+  } else if (arr.length == 2) {
+    return arr[1];
+  } 
+  return '';
+}
+
+function firstMessageClass() {
+  if (MESSAGES_ERROR.length > 0) {
+    return 'cw-message-error';
+  } else if (MESSAGES_WARN.length > 0) {
+    return 'cw-message-warn';
+  } else if (MESSAGES_INFO.length > 0) {
+    return 'cw-message-info';
+  }
+  return 'cw-message-info';
+}
+
+function showConfirmMessage(msg) {
+  var messageCont = document.getElementById('cw-message-cont');
+  removeAllChildNodes(messageCont);
+
+  var cwMsg = document.createElement('span'); 
+  cwMsg.id = 'cw-confirm-text';
+  cwMsg.className = 'cw-message-info';
+  cwMsg.innerHTML = msg;
+  messageCont.appendChild(cwMsg);
+
+  // spacer
+  var cwSpacer = document.createElement('span'); 
+  cwSpacer.id = 'cw-message-confirm-space';
+  cwSpacer.className = 'cw-message-info';
+  cwSpacer.innerHTML = ' | ';
+  messageCont.appendChild(cwSpacer);
+  
+  // anchor
+  var anch = document.createElement('a'); 
+  anch.id = 'cw-message-confirm';
+  anch.className = 'cw-message-info';
+  anch.style.textDecoration = 'underline';
+  anch.innerHTML = 'OK';
+  messageCont.appendChild(anch);
+
+  addMessageConfirmListener();
+}
+
+function showMessages() {
+  var messageCont = document.getElementById('cw-message-cont');
+  removeAllChildNodes(messageCont);
+
+  var firstMsg = firstMessage();
+  var firstMsgClass = firstMessageClass();
+
+  var cwMsg = document.createElement('span'); 
+  cwMsg.id = 'cw-message-text';
+  cwMsg.className = firstMsgClass;
+  cwMsg.innerHTML = firstMsg;
+  messageCont.appendChild(cwMsg);
+
+  if (numMessages() > 1) {
+
+    // spacer
+    var cwSpacer2 = document.createElement('span'); 
+    cwSpacer2.id = 'cw-message-space2';
+    cwSpacer2.className = firstMsgClass;
+    cwSpacer2.innerHTML = ' | ';
+    messageCont.appendChild(cwSpacer2);
+
+    var anch2 = document.createElement('a'); 
+    anch2.id = 'cw-message-more';
+    anch2.className = firstMsgClass;
+    anch2.style.textDecoration = 'underline';
+    anch2.innerHTML = 'More';  
+    messageCont.appendChild(anch2);
+
+    addMessageMoreListener();
+  }
+
+  // spacer
+  var cwSpacer = document.createElement('span'); 
+  cwSpacer.id = 'cw-message-space';
+  cwSpacer.className = firstMsgClass;
+  cwSpacer.innerHTML = ' | ';
+  messageCont.appendChild(cwSpacer);
+  
+  // anchor
+  var anch = document.createElement('a'); 
+  anch.id = 'cw-message-close';
+  anch.className = firstMsgClass;
+  anch.style.textDecoration = 'underline';
+  anch.innerHTML = 'Close';
+  messageCont.appendChild(anch);
+
+  addMessageCloseListener();
+}
+
+function showMoreMessage() {
+  var messageCont = document.getElementById('cw-message-cont');
+  if (MESSAGES_ERROR.length > 0) {
+    showMoreMessageByType(messageCont, moreMessage(MESSAGES_ERROR), 'cw-message-error');
+  } else if (MESSAGES_WARN.length > 0) {
+    showMoreMessageByType(messageCont, moreMessage(MESSAGES_WARN), 'cw-message-warn');
+  } else if (MESSAGES_INFO.length > 0) {
+    showMoreMessageByType(messageCont, moreMessage(MESSAGES_INFO), 'cw-message-info');
+  }
+}
+
+function showMoreMessageByType(cont, msg, cls) {
+  if (msg == null || msg.length == 0 ) {
+    return;
+  }
+  var moreMessageCont = document.getElementById('cw-more-message-text');
+  removeElement(moreMessageCont);
+
+  var cwMsg = document.createElement('div'); 
+  cwMsg.className = cls;
+  cwMsg.id = 'cw-more-message-text';
+  var msg = msg.replaceAll('\n', '<br>');
+  cwMsg.innerHTML = msg;
+  cwMsg.style.marginLeft = '20px';
+  cont.appendChild(cwMsg);
+}
+
+function clearMessages() {
+  if (numMessages() > 0) {
+    MESSAGES_WARN = [];
+    MESSAGES_INFO = [];
+    MESSAGES_ERROR = [];
+
+  }
+}
+
+function messageClosed() {
+
+  var messageCont = document.getElementById('cw-message-cont');
+  removeAllChildNodes(messageCont);
+
+  var numInfo = MESSAGES_INFO.length;
+  var numWarn = MESSAGES_WARN.length;
+  var numError = MESSAGES_ERROR.length;
+
+  clearMessages();
+
+  if (CWORD_ACTION == ACTION_EXPORT) {
+    clearAll();
+    return;
+  } else if (CWORD_ACTION == ACTION_IMPORT) {
+    clearAll();
+    return;
+  }
+
+  if (numWarn ==0 && numError ==0) {
+    return;
+  }
+
+  if (CWORD_ACTION == ACTION_UPDATE) {
+    // got errors in update, allow user to correct
+    if (numError > 0) {
+      return;
+    }
+  } else if (CWORD_ACTION == ACTION_PLAY) {
+    if (numError > 0) {
+      clearAll();
+    }
+  } else if (CWORD_ACTION == ACTION_CREATE) {
+    if (!isValidCrosswordName() || isDuplicateNewName()) {
+      // got errors in create, allow user to correct
+      remakeCwSizes();
+    } else {
+      clearAfterClose();
+    }
+  } else {
+    clearAfterClose();
+  }
+
+}
+
+function buildGrid() {
+  initCellMap();
+  initAcrossClues();
+  initDownClues();
+  validateClues();
+  setupLabels();
+}
+
+function printGrid() {
+  printCells();
+  printLabels();
+  printAcrossLabels();
+  printDownLabels();
+  printAcrossClues();
+  printDownClues();
+}
+
+function clearCrosswordDOM() {
+  var cwCont = document.getElementById('cw-cont');
+  removeAllChildNodes(cwCont);
+}
+
+function buildCrosswordDOMNumbers() {
+  var cwCont = document.getElementById('cw-cont');
+
+  var cwSelClue = document.createElement('div'); 
+  cwSelClue.className = 'cw-clues-current';
+  cwSelClue.id = 'cw-selclue';
+  cwSelClue.style.display = 'none';
+  cwCont.appendChild(cwSelClue); 
+
+  var cwBoard = document.createElement('div'); 
+
+  var suf = getNumberedSuffix();
+
+  var cwBoardClassName = 'cw-board-'+suf;
+  var cwCluesClassName = 'cw-clues-'+suf;
+
+  cwBoard.className = cwBoardClassName;
+  cwBoard.id = 'cw-board';
+
+  cwCont.appendChild(cwBoard);
+
+  domInputsNumbers(cwBoard);
+
+  var cwItemBgs = document.createElement('div'); 
+  cwItemBgs.id = 'cw-itembgs';
+  cwItemBgs.classList.add(cwBoardClassName);
+  cwItemBgs.classList.add('cw-itembgs');
+  cwBoard.appendChild(cwItemBgs); 
+
+  domItemBgsNumbers(cwItemBgs);
+
+  var cwLabels = document.createElement('div'); 
+  cwLabels.id = 'cw-labels';
+  cwLabels.classList.add(cwBoardClassName);
+  cwLabels.classList.add('cw-labels');
+  cwBoard.appendChild(cwLabels); 
+
+  domLabelsNumbers(cwLabels);
+
+  var cwClues = document.createElement('div'); 
+
+  cwClues.classList.add(cwCluesClassName);
+
+  cwClues.id = 'cw-clues';
+
+  cwBoard.appendChild(cwClues); 
+
+  domAcrossClues(cwClues);
+
+  var hr = document.createElement('hr'); 
+  cwClues.appendChild(hr); 
+
+  domDownClues(cwClues);
+}
+
+function buildCrosswordDOM() {
+  var cwCont = document.getElementById('cw-cont');
+
+  var cwSelClue = document.createElement('div'); 
+  cwSelClue.className = 'cw-clues-current';
+  cwSelClue.id = 'cw-selclue';
+  cwSelClue.style.display = 'none';
+  cwCont.appendChild(cwSelClue); 
+
+  var cwBoard = document.createElement('div'); 
+
+  var suf = getNonNumberedSuffix();
+
+  var cwBoardClassName = 'cw-board-'+suf;
+  var cwCluesClassName = 'cw-clues-'+suf;
+
+  cwBoard.className = cwBoardClassName;
+  cwBoard.id = 'cw-board';
+
+  cwCont.appendChild(cwBoard);
+
+  domInputs(cwBoard);
+
+  var cwItemBgs = document.createElement('div'); 
+  cwItemBgs.id = 'cw-itembgs';
+  cwItemBgs.classList.add(cwBoardClassName);
+  cwItemBgs.classList.add('cw-itembgs');
+  cwBoard.appendChild(cwItemBgs); 
+
+  domItemBgs(cwItemBgs);
+
+  var cwLabels = document.createElement('div'); 
+  cwLabels.id = 'cw-labels';
+  cwLabels.classList.add(cwBoardClassName);
+  cwLabels.classList.add('cw-labels');
+  cwBoard.appendChild(cwLabels); 
+
+  domLabels(cwLabels);
+
+  var cwClues = document.createElement('div'); 
+
+  cwClues.classList.add(cwCluesClassName);
+
+  cwClues.id = 'cw-clues';
+
+  cwBoard.appendChild(cwClues); 
+
+  domAcrossClues(cwClues);
+
+  var hr = document.createElement('hr'); 
+  cwClues.appendChild(hr); 
+
+  domDownClues(cwClues);
+}
+
+/* Start mysql storage plugin */
+
+function storeGetNames(context) {
+  
+  console.log('start storeGetNames');
+
+  fetch('/cwords')
+  .then(
+    response => {
+      return response.json();
+    }
+  )
+  .then(
+    data => {
+      console.log('in fetch : data = ...'+JSON.stringify(data)+'...');
+      var names = [];
+      for (var i=0; i<data.length; i++) {
+        var row = data[i];
+        var name = row.name;
+        names.push(name);
+      }
+      console.log('in fetch : names = ...'+JSON.stringify(names)+'...');
+      resultGetNames(names, true, context);
+    }
+  )
+  .catch(
+    err => {
+      console.log('in fetch err = ...'+JSON.stringify(err)+'...');
+      resultGetNames([], false, context);
+    }
+  )
+  console.log('in storeGetNames after fetch');
+ 
+}
+
+function storeGet(name) {
+
+  console.log('start storeGet '+name);
+
+  fetch('/cwords/name/'+name)
+  .then(
+    response => {
+      return response.json();
+    }
+  )
+  .then(
+    data => {
+      console.log('in fetch : data = ...'+JSON.stringify(data)+'...');
+      var cwObj = JSON.parse(data.contents)
+      resultGet(cwObj, true, name);
+    }
+  )
+  .catch(
+    err => {
+      console.log('in fetch err = ...'+JSON.stringify(err)+'...');
+      resultGet(null, false, name);
+    }
+  )
+  console.log('in storeGet after fetch');
+
+}
+
+function storeDelete(name) {
+
+  console.log('start storeDelete '+name);
+
+  fetch('/cwords/name/'+name, {
+    method: 'DELETE',
+  })
+  .then(
+    response => {
+      return response.json();
+    }
+  )
+  .then(
+    data => {
+      console.log('in fetch : data = ...'+JSON.stringify(data)+'...');
+      resultDelete(true, name);
+    }
+  )
+  .catch(
+    err => {
+      console.log('in fetch err = ...'+JSON.stringify(err)+'...');
+      resultDelete(false, name);
+    }
+  )
+
+  console.log('end storeDelete '+name);
+
+}
+
+function storeSave(cwObj, context) {
+
+  console.log('start storeSave '+cwObj);
+
+  // for play and update - assume the cword exists
+  // for other cases, (new, new-example, import) check first
+
+  if (context == CTX_PLAY) {
+    storeUpdate(cwObj, context);
+  } else if (context == CTX_UPDATE) {
+    storeUpdate(cwObj, context);
+  } else {
+
+    fetch('/cwords')
+    .then(
+      response => {
+        return response.json();
+      }
+    )
+    .then(
+      data => {
+        console.log('in fetch : data = ...'+JSON.stringify(data)+'...');
+        var names = [];
+        for (var i=0; i<data.length; i++) {
+          var row = data[i];
+          var name = row.name;
+          names.push(name);
+        }
+        console.log('in fetch : names = ...'+JSON.stringify(names)+'...');
+        if (names.includes(cwObj.name)) {
+          storeUpdate(cwObj, context);
+        } else {
+          storeInsert(cwObj, context);
+        }
+      }
+    )
+    .catch(
+      err => {
+        console.log('in fetch err = ...'+JSON.stringify(err)+'...');
+        resultSave(false, context);
+      }
+    )
+
+  }
+
+}
+
+function storeInsert(cwObj, context) {
+
+  console.log('start storeInsert '+cwObj.name);
+
+  fetch('/cwords', {
+    method: 'POST', 
+    headers: {
+     'Content-type': 'application/json; charset=UTF-8' 
+    },
+    body: JSON.stringify(cwObj)  
+   })
+  .then(
+    response => {
+      return response.json();
+    }
+  )
+  .then(
+    data => {
+      console.log('in fetch : data = ...'+JSON.stringify(data)+'...');
+      resultSave(true, context);
+    }
+  )
+  .catch(
+    err => {
+      console.log('in fetch err = ...'+JSON.stringify(err)+'...');
+      resultSave(false, context);
+    }
+  )
+
+  console.log('end storeSave '+cwObj);
+
+}
+
+function storeUpdate(cwObj, context) {
+
+  console.log('start storeUpdate '+cwObj.name);
+
+  fetch('/cwords/name/'+cwObj.name, {
+    method: 'PUT', 
+    headers: {
+     'Content-type': 'application/json; charset=UTF-8' 
+    },
+    body: JSON.stringify(cwObj)  
+   })
+  .then(
+    response => {
+      return response.json();
+    }
+  )
+  .then(
+    data => {
+      console.log('in fetch : data = ...'+JSON.stringify(data)+'...');
+      resultSave(true, context);
+    }
+  )
+  .catch(
+    err => {
+      console.log('in fetch err = ...'+JSON.stringify(err)+'...');
+      resultSave(false, context);
+    }
+  )
+
+  console.log('end storeUpdate '+cwObj);
+
+}
+
+
+
+
+/* End mysql storage plugin */
+
+
+</script>
+
+</body>
+</html>
+
